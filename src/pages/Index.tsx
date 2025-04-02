@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import StockTile from '@/components/StockTile';
@@ -9,7 +8,7 @@ import Footer from '@/components/Footer';
 import mockStocks from '@/data/mockStocks';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Fire, TrendingUp, DollarSign, Percent } from 'lucide-react';
+import { Flame, TrendingUp, DollarSign, Percent } from 'lucide-react';
 
 const Index = () => {
   const [selectedStock, setSelectedStock] = useState(null);
@@ -74,7 +73,7 @@ const Index = () => {
                   <TrendingUp className="h-4 w-4 mr-2" /> Trending
                 </TabsTrigger>
                 <TabsTrigger value="gainers">
-                  <Fire className="h-4 w-4 mr-2" /> Top Gainers
+                  <Flame className="h-4 w-4 mr-2" /> Top Gainers
                 </TabsTrigger>
                 <TabsTrigger value="value">
                   <DollarSign className="h-4 w-4 mr-2" /> Value Picks
