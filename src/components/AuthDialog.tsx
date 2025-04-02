@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -67,6 +68,14 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
     },
   });
 
+  // Update mode when initialMode prop changes
+  useEffect(() => {
+    if (initialMode) {
+      setMode(initialMode);
+    }
+  }, [initialMode]);
+
+  // Reset form when dialog opens or mode changes
   useEffect(() => {
     if (isOpen) {
       form.reset({

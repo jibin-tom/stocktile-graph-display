@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ChevronDown, Search } from 'lucide-react';
@@ -53,12 +54,12 @@ const Navbar = () => {
   };
 
   const handleOpenLogin = () => {
-    setAuthDialogMode('login');
+    setAuthDialogMode('login'); // Explicitly set to login mode
     setAuthDialogOpen(true);
   };
 
   const handleOpenSignup = () => {
-    setAuthDialogMode('register');
+    setAuthDialogMode('register'); // Explicitly set to register mode
     setAuthDialogOpen(true);
   };
 
