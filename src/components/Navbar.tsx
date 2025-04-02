@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ChevronDown, Search } from 'lucide-react';
@@ -18,6 +17,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import AuthDialog from '@/components/AuthDialog';
+import UserMenu from '@/components/UserMenu';
+import { useAuth } from '@/contexts/AuthProvider';
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -26,6 +27,7 @@ const Navbar = () => {
   const [authDialogOpen, setAuthDialogOpen] = useState(false);
   const [authDialogMode, setAuthDialogMode] = useState<'login' | 'register'>('login');
   const searchInputRef = useRef(null);
+  const { user } = useAuth();
 
   // Filter stocks based on search query
   useEffect(() => {
@@ -45,7 +47,6 @@ const Navbar = () => {
   }, [searchQuery]);
 
   const handleSelectStock = (symbol) => {
-    // Navigate to NYSE website with the stock symbol
     window.open(`https://www.nyse.com/quote/${symbol}`, '_blank');
     setOpen(false);
     setSearchQuery('');
@@ -137,8 +138,14 @@ const Navbar = () => {
         </div>
         
         <div className="flex items-center space-x-3">
-          <Button variant="outline" size="sm" onClick={handleOpenLogin}>Log In</Button>
-          <Button size="sm" onClick={handleOpenSignup}>Sign Up</Button>
+          {user ? (
+            <UserMenu />
+          ) : (
+            <>
+              <Button variant="outline" size="sm" onClick={handleOpenLogin}>Log In</Button>
+              <Button size="sm" onClick={handleOpenSignup}>Sign Up</Button>
+            </>
+          )}
         </div>
       </div>
 

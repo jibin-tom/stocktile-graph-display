@@ -1,8 +1,6 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { Mail, User, UserPlus, X } from 'lucide-react';
 import {
@@ -24,6 +22,7 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
+import { useAuth } from '@/contexts/AuthProvider';
 
 type AuthMode = 'login' | 'register';
 
@@ -38,6 +37,7 @@ const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
   password: z.string().min(8, { message: "Password must be at least 8 characters" }),
   confirmPassword: z.string().optional(),
+  fullName: z.string().optional(),
 }).refine((data) => {
   if (data.confirmPassword !== undefined) {
     return data.password === data.confirmPassword;
@@ -55,6 +55,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
 }) => {
   const [mode, setMode] = useState<AuthMode>(initialMode);
   const { toast } = useToast();
+  const { signIn, signUp, loading } = useAuth();
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -62,8 +63,20 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
       email: "",
       password: "",
       confirmPassword: "",
+      fullName: "",
     },
   });
+
+  useEffect(() => {
+    if (isOpen) {
+      form.reset({
+        email: "",
+        password: "",
+        confirmPassword: "",
+        fullName: "",
+      });
+    }
+  }, [isOpen, mode, form]);
 
   const handleGoogleSignup = () => {
     toast({
@@ -73,22 +86,21 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
     // In a real implementation, this would redirect to Google OAuth
   };
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // Mock authentication logic
-    if (mode === 'login') {
-      toast({
-        title: "Login Attempted",
-        description: `You attempted to login with ${values.email}`,
-      });
-    } else {
-      toast({
-        title: "Registration Successful",
-        description: `Account created for ${values.email}`,
-      });
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      if (mode === 'login') {
+        await signIn(values.email, values.password);
+        onOpenChange(false);
+      } else {
+        await signUp(values.email, values.password, { 
+          full_name: values.fullName || undefined 
+        });
+        // Keep dialog open for confirmation message in signup case
+      }
+    } catch (error) {
+      // Errors are handled in the auth provider with toast notifications
+      console.error(error);
     }
-    
-    onOpenChange(false);
-    form.reset();
   };
 
   const switchMode = () => {
@@ -126,6 +138,22 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
               )}
             />
             
+            {mode === 'register' && (
+              <FormField
+                control={form.control}
+                name="fullName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Full Name (Optional)</FormLabel>
+                    <FormControl>
+                      <Input placeholder="John Doe" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+            
             <FormField
               control={form.control}
               name="password"
@@ -156,7 +184,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
               />
             )}
 
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full" disabled={loading}>
               {mode === 'login' ? (
                 <>
                   <User className="mr-2 h-4 w-4" />
