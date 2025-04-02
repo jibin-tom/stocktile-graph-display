@@ -5,10 +5,10 @@ import { ArrowUp, ArrowDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const indexData = [
-  { name: 'S&P 500', value: 4,863.93, change: 1.02, changePercent: 0.02 },
-  { name: 'Dow 30', value: 38,239.66, change: 125.82, changePercent: 0.33 },
-  { name: 'Nasdaq', value: 17,597.08, change: -8.14, changePercent: -0.05 },
-  { name: 'Russell 2000', value: 2,028.97, change: 11.37, changePercent: 0.56 },
+  { name: 'S&P 500', value: 4863.93, change: 1.02, changePercent: 0.02 },
+  { name: 'Dow 30', value: 38239.66, change: 125.82, changePercent: 0.33 },
+  { name: 'Nasdaq', value: 17597.08, change: -8.14, changePercent: -0.05 },
+  { name: 'Russell 2000', value: 2028.97, change: 11.37, changePercent: 0.56 },
 ];
 
 const MarketOverview: React.FC = () => {
