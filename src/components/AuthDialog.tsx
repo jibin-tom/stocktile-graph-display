@@ -1,0 +1,202 @@
+
+import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { useToast } from '@/hooks/use-toast';
+import { Mail, User, UserPlus, X } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
+import { 
+  Form, 
+  FormControl, 
+  FormField, 
+  FormItem, 
+  FormLabel, 
+  FormMessage 
+} from '@/components/ui/form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+
+type AuthMode = 'login' | 'register';
+
+interface AuthDialogProps {
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
+  initialMode?: AuthMode;
+}
+
+// Form schema for validation
+const formSchema = z.object({
+  email: z.string().email({ message: "Please enter a valid email address" }),
+  password: z.string().min(8, { message: "Password must be at least 8 characters" }),
+  confirmPassword: z.string().optional(),
+}).refine((data) => {
+  if (data.confirmPassword !== undefined) {
+    return data.password === data.confirmPassword;
+  }
+  return true;
+}, {
+  message: "Passwords do not match",
+  path: ["confirmPassword"],
+});
+
+const AuthDialog: React.FC<AuthDialogProps> = ({ 
+  isOpen, 
+  onOpenChange,
+  initialMode = 'login'
+}) => {
+  const [mode, setMode] = useState<AuthMode>(initialMode);
+  const { toast } = useToast();
+  
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
+
+  const handleGoogleSignup = () => {
+    toast({
+      title: "Google Sign-Up",
+      description: "Google authentication would be initiated here.",
+    });
+    // In a real implementation, this would redirect to Google OAuth
+  };
+
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    // Mock authentication logic
+    if (mode === 'login') {
+      toast({
+        title: "Login Attempted",
+        description: `You attempted to login with ${values.email}`,
+      });
+    } else {
+      toast({
+        title: "Registration Successful",
+        description: `Account created for ${values.email}`,
+      });
+    }
+    
+    onOpenChange(false);
+    form.reset();
+  };
+
+  const switchMode = () => {
+    setMode(mode === 'login' ? 'register' : 'login');
+    form.reset();
+  };
+
+  return (
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>
+            {mode === 'login' ? 'Log in to your account' : 'Create an account'}
+          </DialogTitle>
+          <DialogDescription>
+            {mode === 'login' 
+              ? 'Enter your email below to log in to your account.' 
+              : 'Enter your details below to create your account.'}
+          </DialogDescription>
+        </DialogHeader>
+        
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input placeholder="your.email@example.com" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" placeholder="••••••••" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
+            {mode === 'register' && (
+              <FormField
+                control={form.control}
+                name="confirmPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Confirm Password</FormLabel>
+                    <FormControl>
+                      <Input type="password" placeholder="••••••••" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+
+            <Button type="submit" className="w-full">
+              {mode === 'login' ? (
+                <>
+                  <User className="mr-2 h-4 w-4" />
+                  Log in
+                </>
+              ) : (
+                <>
+                  <UserPlus className="mr-2 h-4 w-4" />
+                  Sign up
+                </>
+              )}
+            </Button>
+          </form>
+        </Form>
+        
+        <div className="relative my-4">
+          <div className="absolute inset-0 flex items-center">
+            <span className="w-full border-t"></span>
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+          </div>
+        </div>
+        
+        <Button variant="outline" onClick={handleGoogleSignup} className="w-full">
+          <Mail className="mr-2 h-4 w-4" />
+          Google
+        </Button>
+        
+        <DialogFooter className="justify-center mt-6">
+          <div className="text-sm text-center">
+            {mode === 'login' ? "Don't have an account? " : "Already have an account? "}
+            <Button variant="link" className="p-0 h-auto" onClick={switchMode}>
+              {mode === 'login' ? 'Sign up' : 'Log in'}
+            </Button>
+          </div>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+export default AuthDialog;

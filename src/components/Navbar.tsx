@@ -17,11 +17,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import AuthDialog from '@/components/AuthDialog';
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [open, setOpen] = useState(false);
   const [filteredStocks, setFilteredStocks] = useState([]);
+  const [authDialogOpen, setAuthDialogOpen] = useState(false);
+  const [authDialogMode, setAuthDialogMode] = useState<'login' | 'register'>('login');
   const searchInputRef = useRef(null);
 
   // Filter stocks based on search query
@@ -46,6 +49,16 @@ const Navbar = () => {
     window.open(`https://www.nyse.com/quote/${symbol}`, '_blank');
     setOpen(false);
     setSearchQuery('');
+  };
+
+  const handleOpenLogin = () => {
+    setAuthDialogMode('login');
+    setAuthDialogOpen(true);
+  };
+
+  const handleOpenSignup = () => {
+    setAuthDialogMode('register');
+    setAuthDialogOpen(true);
   };
 
   return (
@@ -124,10 +137,16 @@ const Navbar = () => {
         </div>
         
         <div className="flex items-center space-x-3">
-          <Button variant="outline" size="sm">Log In</Button>
-          <Button size="sm">Sign Up</Button>
+          <Button variant="outline" size="sm" onClick={handleOpenLogin}>Log In</Button>
+          <Button size="sm" onClick={handleOpenSignup}>Sign Up</Button>
         </div>
       </div>
+
+      <AuthDialog 
+        isOpen={authDialogOpen} 
+        onOpenChange={setAuthDialogOpen} 
+        initialMode={authDialogMode} 
+      />
     </nav>
   );
 };
