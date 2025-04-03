@@ -10,10 +10,12 @@ import mockStocks from '@/data/mockStocks';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Flame, TrendingUp, DollarSign, Percent } from 'lucide-react';
+import AuthDialog from '@/components/AuthDialog';
 
 const Index = () => {
   const [selectedStock, setSelectedStock] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [authDialogOpen, setAuthDialogOpen] = useState(false);
 
   const handleStockClick = (stock) => {
     setSelectedStock({
@@ -24,8 +26,8 @@ const Index = () => {
   };
 
   const handleGetStarted = () => {
-    // Open registration page in a new window
-    window.open('/create-watchlist', '_blank');
+    // Open authentication dialog instead of a new window
+    setAuthDialogOpen(true);
   };
 
   return (
@@ -192,7 +194,7 @@ const Index = () => {
           <Button 
             size="lg" 
             className="bg-white text-finance-blue hover:bg-gray-100"
-            onClick={() => window.open('/create-watchlist', '_blank')}
+            onClick={handleGetStarted}
           >
             Create Free Account
           </Button>
@@ -207,6 +209,13 @@ const Index = () => {
         open={dialogOpen} 
         onOpenChange={setDialogOpen} 
         stock={selectedStock} 
+      />
+
+      {/* Auth Dialog */}
+      <AuthDialog 
+        isOpen={authDialogOpen}
+        onOpenChange={setAuthDialogOpen}
+        initialMode="register"
       />
     </div>
   );
