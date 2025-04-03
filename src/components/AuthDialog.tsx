@@ -114,31 +114,19 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
       
       if (mode === 'login') {
         console.log("Signing in with:", values.email);
-        const result = await signIn(values.email, values.password);
-        console.log('Sign in result:', result);
-        
-        if (result.error) {
-          throw new Error(result.error.message);
-        }
+        await signIn(values.email, values.password);
         
         toast({
           title: "Login Successful",
           description: "You have been logged in successfully!",
         });
         
-        // Explicitly close the dialog after successful login
-        onOpenChange(false);
+        // Dialog will close automatically when the user state updates (via the useEffect above)
       } else {
         console.log("Signing up with:", values.email);
-        const result = await signUp(values.email, values.password, { 
+        await signUp(values.email, values.password, { 
           full_name: values.fullName || undefined 
         });
-        
-        console.log('Sign up result:', result);
-        
-        if (result.error) {
-          throw new Error(result.error.message);
-        }
         
         toast({
           title: "Account Created",
