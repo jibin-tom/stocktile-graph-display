@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import StockTile from '@/components/StockTile';
@@ -10,7 +9,7 @@ import mockStocks from '@/data/mockStocks';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Flame, TrendingUp, DollarSign, Percent } from 'lucide-react';
-import AuthDialog from '@/components/AuthDialog';
+import AuthDialog from '@/components/auth/AuthDialog';
 
 const Index = () => {
   const [selectedStock, setSelectedStock] = useState(null);
@@ -26,7 +25,6 @@ const Index = () => {
   };
 
   const handleGetStarted = () => {
-    // Open authentication dialog instead of a new window
     setAuthDialogOpen(true);
   };
 
@@ -34,7 +32,6 @@ const Index = () => {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
       
-      {/* Hero Section */}
       <section className="pt-24 pb-12 px-4 bg-white">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8">
@@ -63,14 +60,12 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Market Overview Section */}
       <section className="py-8 px-4">
         <div className="max-w-7xl mx-auto">
           <MarketOverview />
         </div>
       </section>
       
-      {/* Stock Categories Section */}
       <section className="py-8 px-4">
         <div className="max-w-7xl mx-auto">
           <Tabs defaultValue="trending">
@@ -181,10 +176,8 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Features Section */}
       <FeatureSection />
       
-      {/* CTA Section */}
       <section className="py-16 px-4 bg-finance-blue text-white">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to take your investing to the next level?</h2>
@@ -201,17 +194,14 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Footer */}
       <Footer />
       
-      {/* Stock Detail Dialog */}
       <StockDetailDialog 
         open={dialogOpen} 
         onOpenChange={setDialogOpen} 
         stock={selectedStock} 
       />
 
-      {/* Auth Dialog */}
       <AuthDialog 
         isOpen={authDialogOpen}
         onOpenChange={setAuthDialogOpen}
