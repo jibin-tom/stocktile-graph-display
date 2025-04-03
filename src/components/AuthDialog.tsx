@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -55,7 +56,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
 }) => {
   const [mode, setMode] = useState<AuthMode>(initialMode);
   const { toast } = useToast();
-  const { signIn, signUp, loading } = useAuth();
+  const { signIn, signUp, loading, user } = useAuth();
   const [submitting, setSubmitting] = useState(false);
   
   const form = useForm<z.infer<typeof formSchema>>({
@@ -88,6 +89,14 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
     }
   }, [isOpen, mode, form]);
 
+  // Close dialog when user becomes available
+  useEffect(() => {
+    if (user && isOpen) {
+      console.log('User detected, closing dialog');
+      onOpenChange(false);
+    }
+  }, [user, isOpen, onOpenChange]);
+
   const handleGoogleSignup = () => {
     toast({
       title: "Google Sign-Up",
@@ -106,7 +115,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
       if (mode === 'login') {
         await signIn(values.email, values.password);
         console.log('Sign in successful');
-        onOpenChange(false);
+        // Dialog will close automatically when user state updates
       } else {
         await signUp(values.email, values.password, { 
           full_name: values.fullName || undefined 
@@ -120,11 +129,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
       }
     } catch (error: any) {
       console.error('Auth error:', error);
-      toast({
-        title: "Authentication Error",
-        description: error.message || `Failed to ${mode === 'login' ? 'sign in' : 'sign up'}`,
-        variant: "destructive",
-      });
+      // Error is already handled with toast in the auth provider
     } finally {
       setSubmitting(false);
     }

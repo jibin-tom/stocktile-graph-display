@@ -1,7 +1,6 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { ChevronDown, Search } from 'lucide-react';
+import { ChevronDown, Search, DollarSign, BarChart2, TrendingUp, Newspaper, BookOpen, Globe } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import mockStocks from '@/data/mockStocks';
 import {
@@ -17,6 +16,15 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
 import AuthDialog from '@/components/AuthDialog';
 import UserMenu from '@/components/UserMenu';
 import { useAuth } from '@/contexts/AuthProvider';
@@ -27,7 +35,7 @@ const Navbar = () => {
   const [filteredStocks, setFilteredStocks] = useState([]);
   const [authDialogOpen, setAuthDialogOpen] = useState(false);
   const [authDialogMode, setAuthDialogMode] = useState<'login' | 'register'>('login');
-  const searchInputRef = useRef(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const { user } = useAuth();
 
   // Filter stocks based on search query
@@ -63,21 +71,126 @@ const Navbar = () => {
     setAuthDialogOpen(true);
   };
 
+  // Fix to keep focus in search input when typing
+  const handleSearchFocus = () => {
+    if (searchQuery.trim() !== '') {
+      setOpen(true);
+    }
+  };
+
+  // Fix to maintain focus on input when popover opens
+  useEffect(() => {
+    if (open && searchInputRef.current) {
+      // Use a small timeout to ensure the popover is rendered
+      setTimeout(() => {
+        searchInputRef.current?.focus();
+      }, 10);
+    }
+  }, [open]);
+
   return (
     <nav className="bg-white shadow-sm py-3 px-4 md:px-6 fixed top-0 left-0 right-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-8">
           <div className="font-bold text-2xl text-finance-darkBlue">StockTile</div>
           <div className="hidden md:flex items-center space-x-6">
-            <div className="flex items-center cursor-pointer hover:text-finance-blue">
-              Markets <ChevronDown className="ml-1 h-4 w-4" />
-            </div>
-            <div className="flex items-center cursor-pointer hover:text-finance-blue">
-              Watchlists <ChevronDown className="ml-1 h-4 w-4" />
-            </div>
-            <div className="flex items-center cursor-pointer hover:text-finance-blue">
-              News <ChevronDown className="ml-1 h-4 w-4" />
-            </div>
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger>
+                    Markets
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-2">
+                      <div className="grid gap-1">
+                        <NavigationMenuLink asChild>
+                          <a href="#" className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue">
+                            <BarChart2 className="h-4 w-4" />
+                            <span>Market Overview</span>
+                          </a>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <a href="#" className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue">
+                            <DollarSign className="h-4 w-4" />
+                            <span>Stocks</span>
+                          </a>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <a href="#" className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue">
+                            <TrendingUp className="h-4 w-4" />
+                            <span>Indices</span>
+                          </a>
+                        </NavigationMenuLink>
+                      </div>
+                      <div className="grid gap-1">
+                        <NavigationMenuLink asChild>
+                          <a href="#" className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue">
+                            <Globe className="h-4 w-4" />
+                            <span>Global Markets</span>
+                          </a>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <a href="#" className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue">
+                            <BarChart2 className="h-4 w-4" />
+                            <span>Sectors</span>
+                          </a>
+                        </NavigationMenuLink>
+                      </div>
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger>
+                    Watchlists
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="grid gap-3 p-4 md:w-[300px]">
+                      <NavigationMenuLink asChild>
+                        <a href="#" className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue">
+                          <TrendingUp className="h-4 w-4" />
+                          <span>My Watchlists</span>
+                        </a>
+                      </NavigationMenuLink>
+                      <NavigationMenuLink asChild>
+                        <a href="#" className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue">
+                          <DollarSign className="h-4 w-4" />
+                          <span>Create New Watchlist</span>
+                        </a>
+                      </NavigationMenuLink>
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger>
+                    News
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="grid gap-3 p-4 md:w-[350px]">
+                      <NavigationMenuLink asChild>
+                        <a href="#" className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue">
+                          <Newspaper className="h-4 w-4" />
+                          <span>Latest News</span>
+                        </a>
+                      </NavigationMenuLink>
+                      <NavigationMenuLink asChild>
+                        <a href="#" className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue">
+                          <BookOpen className="h-4 w-4" />
+                          <span>Market Analysis</span>
+                        </a>
+                      </NavigationMenuLink>
+                      <NavigationMenuLink asChild>
+                        <a href="#" className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue">
+                          <BarChart2 className="h-4 w-4" />
+                          <span>Economic Calendar</span>
+                        </a>
+                      </NavigationMenuLink>
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
           </div>
         </div>
         
@@ -97,11 +210,7 @@ const Navbar = () => {
                       setOpen(true);
                     }
                   }}
-                  onClick={() => {
-                    if (searchQuery.trim() !== '') {
-                      setOpen(true);
-                    }
-                  }}
+                  onFocus={handleSearchFocus}
                   placeholder="Search for stocks, ETFs, indices" 
                   className="pl-10 h-9 w-full"
                   ref={searchInputRef}
