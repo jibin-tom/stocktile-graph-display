@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import StockTile from '@/components/StockTile';
@@ -22,6 +23,11 @@ const Index = () => {
     setDialogOpen(true);
   };
 
+  const handleGetStarted = () => {
+    // Open registration page in a new window
+    window.open('/create-watchlist', '_blank');
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
@@ -37,7 +43,7 @@ const Index = () => {
               Discover, analyze, and track top-performing stocks with our intuitive platform.
             </p>
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-              <Button size="lg" className="bg-finance-blue hover:bg-finance-darkBlue">
+              <Button size="lg" className="bg-finance-blue hover:bg-finance-darkBlue" onClick={handleGetStarted}>
                 Get Started — It's Free
               </Button>
               <Button size="lg" variant="outline">
@@ -183,7 +189,11 @@ const Index = () => {
           <p className="text-xl mb-8 max-w-3xl mx-auto">
             Join thousands of investors who use StockTile to discover opportunities, analyze market trends, and make smarter investment decisions.
           </p>
-          <Button size="lg" className="bg-white text-finance-blue hover:bg-gray-100">
+          <Button 
+            size="lg" 
+            className="bg-white text-finance-blue hover:bg-gray-100"
+            onClick={() => window.open('/create-watchlist', '_blank')}
+          >
             Create Free Account
           </Button>
         </div>

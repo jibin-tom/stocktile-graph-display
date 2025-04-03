@@ -7,6 +7,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthProvider";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import CreateWatchlist from "./pages/CreateWatchlist";
+import Watchlists from "./pages/Watchlists";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +21,8 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/create-watchlist" element={<CreateWatchlist />} />
+            <Route path="/watchlists" element={<Watchlists />} />
             {/* Add future routes here */}
             <Route path="*" element={<NotFound />} />
           </Routes>

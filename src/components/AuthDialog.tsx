@@ -113,23 +113,49 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
       console.log(`Attempting to ${mode === 'login' ? 'sign in' : 'sign up'} with email: ${values.email}`);
       
       if (mode === 'login') {
-        await signIn(values.email, values.password);
-        console.log('Sign in successful');
-        // Dialog will close automatically when user state updates
+        console.log("Signing in with:", values.email);
+        const result = await signIn(values.email, values.password);
+        console.log('Sign in result:', result);
+        
+        if (result.error) {
+          throw new Error(result.error.message);
+        }
+        
+        toast({
+          title: "Login Successful",
+          description: "You have been logged in successfully!",
+        });
+        
+        // Explicitly close the dialog after successful login
+        onOpenChange(false);
       } else {
-        await signUp(values.email, values.password, { 
+        console.log("Signing up with:", values.email);
+        const result = await signUp(values.email, values.password, { 
           full_name: values.fullName || undefined 
         });
-        console.log('Sign up successful');
-        // Keep dialog open for confirmation message in signup case
+        
+        console.log('Sign up result:', result);
+        
+        if (result.error) {
+          throw new Error(result.error.message);
+        }
+        
         toast({
           title: "Account Created",
-          description: "Please check your email for the confirmation link (if enabled).",
+          description: "Your account has been created successfully. Please check your email for verification (if enabled).",
+          variant: "default",
         });
+        
+        // Switch to login mode after successful signup
+        setMode('login');
       }
     } catch (error: any) {
       console.error('Auth error:', error);
-      // Error is already handled with toast in the auth provider
+      toast({
+        title: "Authentication Error",
+        description: error.message || "An error occurred during authentication.",
+        variant: "destructive",
+      });
     } finally {
       setSubmitting(false);
     }

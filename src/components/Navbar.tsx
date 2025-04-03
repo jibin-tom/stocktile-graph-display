@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ChevronDown, Search, DollarSign, BarChart2, TrendingUp, Newspaper, BookOpen, Globe } from 'lucide-react';
@@ -88,6 +89,10 @@ const Navbar = () => {
     }
   }, [open]);
 
+  const openExternalLink = (url) => {
+    window.open(url, '_blank');
+  };
+
   return (
     <nav className="bg-white shadow-sm py-3 px-4 md:px-6 fixed top-0 left-0 right-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -104,19 +109,34 @@ const Navbar = () => {
                     <div className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-2">
                       <div className="grid gap-1">
                         <NavigationMenuLink asChild>
-                          <a href="#" className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue">
+                          <a 
+                            href="https://www.marketwatch.com/" 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue"
+                          >
                             <BarChart2 className="h-4 w-4" />
                             <span>Market Overview</span>
                           </a>
                         </NavigationMenuLink>
                         <NavigationMenuLink asChild>
-                          <a href="#" className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue">
+                          <a 
+                            href="https://www.nyse.com/listings/stock" 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue"
+                          >
                             <DollarSign className="h-4 w-4" />
                             <span>Stocks</span>
                           </a>
                         </NavigationMenuLink>
                         <NavigationMenuLink asChild>
-                          <a href="#" className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue">
+                          <a 
+                            href="https://www.spglobal.com/spdji/en/indices/equity/sp-500/" 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue"
+                          >
                             <TrendingUp className="h-4 w-4" />
                             <span>Indices</span>
                           </a>
@@ -124,13 +144,23 @@ const Navbar = () => {
                       </div>
                       <div className="grid gap-1">
                         <NavigationMenuLink asChild>
-                          <a href="#" className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue">
+                          <a 
+                            href="https://www.msci.com/our-solutions/indexes/global-equity-indexes" 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue"
+                          >
                             <Globe className="h-4 w-4" />
                             <span>Global Markets</span>
                           </a>
                         </NavigationMenuLink>
                         <NavigationMenuLink asChild>
-                          <a href="#" className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue">
+                          <a 
+                            href="https://www.spglobal.com/spdji/en/index-family/select-sectors/sp-sectors/" 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue"
+                          >
                             <BarChart2 className="h-4 w-4" />
                             <span>Sectors</span>
                           </a>
@@ -147,13 +177,19 @@ const Navbar = () => {
                   <NavigationMenuContent>
                     <div className="grid gap-3 p-4 md:w-[300px]">
                       <NavigationMenuLink asChild>
-                        <a href="#" className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue">
+                        <a 
+                          href="/watchlists" 
+                          className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue"
+                        >
                           <TrendingUp className="h-4 w-4" />
                           <span>My Watchlists</span>
                         </a>
                       </NavigationMenuLink>
                       <NavigationMenuLink asChild>
-                        <a href="#" className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue">
+                        <a 
+                          href="/create-watchlist" 
+                          className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue"
+                        >
                           <DollarSign className="h-4 w-4" />
                           <span>Create New Watchlist</span>
                         </a>
@@ -169,19 +205,34 @@ const Navbar = () => {
                   <NavigationMenuContent>
                     <div className="grid gap-3 p-4 md:w-[350px]">
                       <NavigationMenuLink asChild>
-                        <a href="#" className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue">
+                        <a 
+                          href="https://www.moneycontrol.com/news/" 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue"
+                        >
                           <Newspaper className="h-4 w-4" />
                           <span>Latest News</span>
                         </a>
                       </NavigationMenuLink>
                       <NavigationMenuLink asChild>
-                        <a href="#" className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue">
+                        <a 
+                          href="https://www.moneycontrol.com/news/business/markets/" 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue"
+                        >
                           <BookOpen className="h-4 w-4" />
                           <span>Market Analysis</span>
                         </a>
                       </NavigationMenuLink>
                       <NavigationMenuLink asChild>
-                        <a href="#" className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue">
+                        <a 
+                          href="https://www.moneycontrol.com/markets/earnings/" 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue"
+                        >
                           <BarChart2 className="h-4 w-4" />
                           <span>Economic Calendar</span>
                         </a>
