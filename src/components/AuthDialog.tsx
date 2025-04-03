@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -57,6 +56,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
   const [mode, setMode] = useState<AuthMode>(initialMode);
   const { toast } = useToast();
   const { signIn, signUp, loading } = useAuth();
+  const [submitting, setSubmitting] = useState(false);
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -84,6 +84,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
         confirmPassword: "",
         fullName: "",
       });
+      setSubmitting(false);
     }
   }, [isOpen, mode, form]);
 
@@ -96,19 +97,36 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    if (submitting) return;
+    
     try {
+      setSubmitting(true);
+      console.log(`Attempting to ${mode === 'login' ? 'sign in' : 'sign up'} with email: ${values.email}`);
+      
       if (mode === 'login') {
         await signIn(values.email, values.password);
+        console.log('Sign in successful');
         onOpenChange(false);
       } else {
         await signUp(values.email, values.password, { 
           full_name: values.fullName || undefined 
         });
+        console.log('Sign up successful');
         // Keep dialog open for confirmation message in signup case
+        toast({
+          title: "Account Created",
+          description: "Please check your email for the confirmation link (if enabled).",
+        });
       }
-    } catch (error) {
-      // Errors are handled in the auth provider with toast notifications
-      console.error(error);
+    } catch (error: any) {
+      console.error('Auth error:', error);
+      toast({
+        title: "Authentication Error",
+        description: error.message || `Failed to ${mode === 'login' ? 'sign in' : 'sign up'}`,
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -193,16 +211,16 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
               />
             )}
 
-            <Button type="submit" className="w-full" disabled={loading}>
+            <Button type="submit" className="w-full" disabled={loading || submitting}>
               {mode === 'login' ? (
                 <>
                   <User className="mr-2 h-4 w-4" />
-                  Log in
+                  {submitting ? 'Logging in...' : 'Log in'}
                 </>
               ) : (
                 <>
                   <UserPlus className="mr-2 h-4 w-4" />
-                  Sign up
+                  {submitting ? 'Signing up...' : 'Sign up'}
                 </>
               )}
             </Button>
