@@ -26,7 +26,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import AuthDialog from '@/components/AuthDialog';
+import AuthDialog from '@/components/auth/AuthDialog';
 import UserMenu from '@/components/UserMenu';
 import { useAuth } from '@/contexts/AuthProvider';
 
