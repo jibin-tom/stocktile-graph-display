@@ -36,7 +36,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8">
             <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
-              Smart Investing Starts with Better <span className="text-finance-blue">Stock Insights</span>
+              Smart Investing Starts with Better <span className="text-finance-blue">Stock Insights</span> by Sachin
             </h1>
             <p className="text-xl text-gray-600 mb-8">
               Discover, analyze, and track top-performing stocks with our intuitive platform.

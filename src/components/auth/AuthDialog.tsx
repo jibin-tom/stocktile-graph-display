@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 import {
   Dialog,
@@ -30,6 +31,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
   const { toast } = useToast();
   const { signIn, signUp, loading, user } = useAuth();
   const [submitting, setSubmitting] = useState(false);
+  const navigate = useNavigate();
   
   // Update mode when initialMode prop changes
   useEffect(() => {
@@ -38,13 +40,14 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
     }
   }, [initialMode]);
 
-  // Close dialog when user becomes available
+  // Close dialog when user becomes available and redirect to welcome page
   useEffect(() => {
     if (user && isOpen) {
-      console.log('User detected, closing dialog');
+      console.log('User detected, closing dialog and redirecting');
       onOpenChange(false);
+      navigate('/welcome');
     }
-  }, [user, isOpen, onOpenChange]);
+  }, [user, isOpen, onOpenChange, navigate]);
 
   const handleGoogleSignup = () => {
     toast({
@@ -70,7 +73,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
           description: "You have been logged in successfully!",
         });
         
-        // Dialog will close automatically when the user state updates (via the useEffect above)
+        // Dialog will close and redirect automatically when the user state updates (via the useEffect above)
       } else {
         console.log("Signing up with:", values.email);
         await signUp(values.email, values.password, { 
