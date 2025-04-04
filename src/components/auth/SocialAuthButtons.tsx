@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Mail } from 'lucide-react';
+import { Mail, LogIn } from 'lucide-react';
 
 interface SocialAuthButtonsProps {
   onGoogleSignup: () => void;

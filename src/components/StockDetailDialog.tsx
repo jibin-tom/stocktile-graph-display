@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {
   Dialog,
@@ -13,6 +12,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ArrowUp, ArrowDown, Info, TrendingUp, BarChart3, Calendar, Clock, DollarSign } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface StockDetailDialogProps {
   open: boolean;
@@ -41,6 +41,8 @@ const StockDetailDialog: React.FC<StockDetailDialogProps> = ({
   onOpenChange,
   stock,
 }) => {
+  const isMobile = useIsMobile();
+  
   if (!stock) return null;
 
   const isPositive = stock.change >= 0;
@@ -48,15 +50,15 @@ const StockDetailDialog: React.FC<StockDetailDialogProps> = ({
   
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl w-[90vw]">
+      <DialogContent className={cn("max-w-3xl", isMobile ? "w-[95vw] p-3" : "w-[90vw]")}>
         <DialogHeader>
-          <div className="flex justify-between items-start">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start">
             <div>
-              <DialogTitle className="text-2xl font-bold">{stock.symbol}</DialogTitle>
-              <DialogDescription className="text-lg">{stock.companyName}</DialogDescription>
+              <DialogTitle className="text-xl sm:text-2xl font-bold">{stock.symbol}</DialogTitle>
+              <DialogDescription className="text-base sm:text-lg">{stock.companyName}</DialogDescription>
             </div>
-            <div className={cn("flex flex-col items-end", changeClass)}>
-              <span className="text-2xl font-bold">${stock.price.toFixed(2)}</span>
+            <div className={cn("flex flex-col items-start sm:items-end mt-2 sm:mt-0", changeClass)}>
+              <span className="text-xl sm:text-2xl font-bold">${stock.price.toFixed(2)}</span>
               <div className="flex items-center">
                 {isPositive ? <ArrowUp className="h-4 w-4 mr-1" /> : <ArrowDown className="h-4 w-4 mr-1" />}
                 <span>${Math.abs(stock.change).toFixed(2)} ({Math.abs(stock.changePercent).toFixed(2)}%)</span>
@@ -66,26 +68,27 @@ const StockDetailDialog: React.FC<StockDetailDialogProps> = ({
         </DialogHeader>
         
         <Tabs defaultValue="chart" className="mt-4">
-          <TabsList>
-            <TabsTrigger value="chart"><TrendingUp className="h-4 w-4 mr-2" /> Chart</TabsTrigger>
-            <TabsTrigger value="stats"><BarChart3 className="h-4 w-4 mr-2" /> Stats</TabsTrigger>
-            <TabsTrigger value="about"><Info className="h-4 w-4 mr-2" /> About</TabsTrigger>
+          <TabsList className="grid grid-cols-3 w-full">
+            <TabsTrigger value="chart"><TrendingUp className="h-4 w-4 mr-2 hidden sm:inline" /> Chart</TabsTrigger>
+            <TabsTrigger value="stats"><BarChart3 className="h-4 w-4 mr-2 hidden sm:inline" /> Stats</TabsTrigger>
+            <TabsTrigger value="about"><Info className="h-4 w-4 mr-2 hidden sm:inline" /> About</TabsTrigger>
           </TabsList>
           
-          <TabsContent value="chart" className="h-[400px]">
+          <TabsContent value="chart" className="h-[300px] sm:h-[400px]">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={stock.chartData} margin={{ top: 10, right: 30, left: 20, bottom: 30 }}>
+              <LineChart data={stock.chartData} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} />
                 <XAxis 
                   dataKey="date" 
-                  tick={{ fontSize: 12 }}
+                  tick={{ fontSize: isMobile ? 10 : 12 }}
                   tickMargin={10}
+                  tickFormatter={(value) => isMobile ? value.split(' ')[0] : value}
                 />
                 <YAxis 
                   domain={['auto', 'auto']}
-                  tick={{ fontSize: 12 }}
-                  tickMargin={10}
-                  width={60}
+                  tick={{ fontSize: isMobile ? 10 : 12 }}
+                  tickMargin={5}
+                  width={40}
                 />
                 <Tooltip 
                   formatter={(value: number) => [`$${value.toFixed(2)}`, 'Price']}
@@ -103,7 +106,7 @@ const StockDetailDialog: React.FC<StockDetailDialogProps> = ({
           </TabsContent>
           
           <TabsContent value="stats">
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-4">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-4 p-2 sm:p-4">
               <div className="border rounded-md p-3">
                 <div className="flex items-center text-sm text-gray-500 mb-1">
                   <Clock className="h-4 w-4 mr-1" /> Open
@@ -149,7 +152,7 @@ const StockDetailDialog: React.FC<StockDetailDialogProps> = ({
           </TabsContent>
           
           <TabsContent value="about">
-            <div className="space-y-4 p-4">
+            <div className="space-y-4 p-2 sm:p-4">
               <div>
                 <h3 className="font-medium mb-1">Sector</h3>
                 <p>{stock.sector}</p>
@@ -178,9 +181,9 @@ const StockDetailDialog: React.FC<StockDetailDialogProps> = ({
           </TabsContent>
         </Tabs>
         
-        <DialogFooter className="mt-4">
-          <Button variant="outline" onClick={() => onOpenChange(false)}>Close</Button>
-          <Button>Add to Watchlist</Button>
+        <DialogFooter className="mt-4 flex-col sm:flex-row gap-2">
+          <Button variant="outline" onClick={() => onOpenChange(false)} className="w-full sm:w-auto">Close</Button>
+          <Button className="w-full sm:w-auto">Add to Watchlist</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

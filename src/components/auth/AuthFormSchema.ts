@@ -8,7 +8,8 @@ export const authFormSchema = z.object({
   confirmPassword: z.string().optional(),
   fullName: z.string().optional(),
 }).refine((data) => {
-  if (data.confirmPassword !== undefined) {
+  // Only validate confirmPassword if it's provided and we're in register mode
+  if (data.confirmPassword) {
     return data.password === data.confirmPassword;
   }
   return true;

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import StockTile from '@/components/StockTile';
@@ -41,6 +42,9 @@ const Index = () => {
             <p className="text-xl text-gray-600 mb-8">
               Discover, analyze, and track top-performing stocks with our intuitive platform.
             </p>
+            <p className="text-lg mb-6 font-medium">
+              സ്റ്റോക്കിങ്ങ് എന്താണെന്ന് അറിയോo ചെയ്യാം, അതിൽ പൈസ ഇട്ടിട്ടുമുണ്ട് പൈസ പോയിട്ടുമുണ്ട്....
+            </p>
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
               <Button size="lg" className="bg-finance-blue hover:bg-finance-darkBlue" onClick={handleGetStarted}>
                 Get Started — It's Free
@@ -50,11 +54,17 @@ const Index = () => {
               </Button>
             </div>
           </div>
-          <div className="md:w-1/2">
+          <div className="md:w-1/2 flex flex-col items-center">
+            <img 
+              src="/lovable-uploads/d5af928d-133e-4280-8b4f-0390db8a01d0.png" 
+              alt="Stock trader with sunglasses" 
+              className="rounded-lg mb-4 max-w-full h-auto" 
+              style={{ maxHeight: "300px" }}
+            />
             <img 
               src="https://placehold.co/600x400/e4f2ff/2563eb?text=Stock+Analytics+Dashboard" 
               alt="Stock Analytics Dashboard" 
-              className="rounded-lg shadow-lg" 
+              className="rounded-lg shadow-lg max-w-full h-auto" 
             />
           </div>
         </div>
