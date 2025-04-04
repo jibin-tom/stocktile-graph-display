@@ -42,7 +42,7 @@ const Index = () => {
             <p className="text-xl text-gray-600 mb-8">
               Discover, analyze, and track top-performing stocks with our intuitive platform.
             </p>
-            <p className="text-lg mb-6 font-medium">
+            <p className="text-lg mb-6 font-bold">
               സ്റ്റോക്കിങ്ങ് എന്താണെന്ന് അറിയോo ചെയ്യാം, അതിൽ പൈസ ഇട്ടിട്ടുമുണ്ട് പൈസ പോയിട്ടുമുണ്ട്....
             </p>
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
