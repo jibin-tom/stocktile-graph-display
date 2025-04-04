@@ -16,6 +16,14 @@ const Welcome = () => {
     }
   }, [user, navigate]);
 
+  useEffect(() => {
+    // Force reflow to ensure components render properly
+    document.body.style.opacity = '0.99';
+    setTimeout(() => {
+      document.body.style.opacity = '1';
+    }, 10);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Navbar />
