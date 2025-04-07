@@ -43,13 +43,13 @@ const NavigationGuard: React.FC = () => {
     return () => {
       window.removeEventListener('popstate', handleBackButton);
     };
-  }, [user, navigate, location]);
+  }, [user, location.pathname]);
   
   const handleSignOut = async () => {
     setIsConfirmOpen(false);
     try {
       await signOut();
-      // Navigate to home page
+      // Navigate to home page after successful signout
       navigate('/');
     } catch (error) {
       console.error('Error signing out:', error);
