@@ -8,8 +8,8 @@ const TestimonialSection = () => {
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold text-center mb-12">Stockerr Members</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div className="col-span-1 md:col-start-2 lg:col-start-2">
+        <div className="flex justify-center">
+          <div className="max-w-md">
             <div className="bg-gray-50 rounded-xl shadow-md p-6 flex flex-col items-center">
               <div className="relative mb-4">
                 <img 
