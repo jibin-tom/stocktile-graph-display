@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import StockTile from '@/components/StockTile';
@@ -17,7 +17,18 @@ const Index = () => {
   const [selectedStock, setSelectedStock] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [authDialogOpen, setAuthDialogOpen] = useState(false);
+  const [titleAnimation, setTitleAnimation] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setTitleAnimation(true);
+    const interval = setInterval(() => {
+      setTitleAnimation(false);
+      setTimeout(() => setTitleAnimation(true), 100);
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, []);
 
   const handleStockClick = (stock) => {
     setSelectedStock({
@@ -42,17 +53,24 @@ const Index = () => {
       <section className="pt-24 pb-12 px-4 bg-white">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8">
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
-              Smart Investing Starts with Better <span className="text-finance-blue">Stock Insights</span> by Sachin
+            <h1 className={`text-4xl md:text-5xl font-bold leading-tight mb-4 transition-all duration-700 ${titleAnimation ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
+              Smart Investing Starts with Better{' '}
+              <span className="bg-gradient-to-r from-blue-600 via-finance-blue to-purple-600 bg-clip-text text-transparent animate-pulse">
+                Stock Insights
+              </span>{' '}
+              <span className="relative inline-block">
+                by Sachin
+                <span className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-yellow-400 to-orange-500 transform scale-x-0 transition-transform duration-700 origin-left" style={{ transform: titleAnimation ? 'scaleX(1)' : 'scaleX(0)' }}></span>
+              </span>
             </h1>
-            <p className="text-xl text-gray-600 mb-8">
+            <p className={`text-xl text-gray-600 mb-8 transition-all duration-700 delay-300 ${titleAnimation ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}>
               Discover, analyze, and track top-performing stocks with our intuitive platform.
             </p>
-            <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-              <Button size="lg" className="bg-finance-blue hover:bg-finance-darkBlue" onClick={handleGetStarted}>
+            <div className={`flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 transition-all duration-700 delay-500 ${titleAnimation ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+              <Button size="lg" className="bg-finance-blue hover:bg-finance-darkBlue transform hover:scale-105 transition-all duration-300" onClick={handleGetStarted}>
                 Get Started — It's Free
               </Button>
-              <Button size="lg" variant="outline" onClick={handleHowItWorks}>
+              <Button size="lg" variant="outline" className="transform hover:scale-105 transition-all duration-300" onClick={handleHowItWorks}>
                 See How It Works
               </Button>
             </div>
@@ -61,10 +79,10 @@ const Index = () => {
             <img 
               src="/lovable-uploads/d5af928d-133e-4280-8b4f-0390db8a01d0.png" 
               alt="Stock trader with sunglasses" 
-              className="rounded-lg max-w-full h-auto shadow-lg" 
+              className={`rounded-lg max-w-full h-auto shadow-lg transition-all duration-1000 ${titleAnimation ? 'opacity-100 scale-100 rotate-0' : 'opacity-90 scale-95 rotate-1'}`}
               style={{ maxHeight: "350px" }}
             />
-            <p className="text-lg mt-4 font-bold text-center px-4">
+            <p className={`text-lg mt-4 font-bold text-center px-4 transition-all duration-700 delay-700 ${titleAnimation ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
               സ്റ്റോക്കിങ്ങ് എന്താണെന്ന് അറിയോo ചെയ്യാം, അതിൽ പൈസ ഇട്ടിട്ടുമുണ്ട് പൈസ പോയിട്ടുമുണ്ട്....
             </p>
           </div>
