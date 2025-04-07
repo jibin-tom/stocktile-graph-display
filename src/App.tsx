@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthProvider";
 import Index from "./pages/Index";
 import Welcome from "./pages/Welcome";
+import HowItWorks from "./pages/HowItWorks";
 import NotFound from "./pages/NotFound";
 import CreateWatchlist from "./pages/CreateWatchlist";
 import Watchlists from "./pages/Watchlists";
@@ -23,6 +24,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/welcome" element={<Welcome />} />
+            <Route path="/how-it-works" element={<HowItWorks />} />
             <Route path="/create-watchlist" element={<CreateWatchlist />} />
             <Route path="/watchlists" element={<Watchlists />} />
             {/* Add future routes here */}

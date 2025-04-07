@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import StockTile from '@/components/StockTile';
 import StockDetailDialog from '@/components/StockDetailDialog';
 import MarketOverview from '@/components/MarketOverview';
 import FeatureSection from '@/components/FeatureSection';
+import TestimonialSection from '@/components/TestimonialSection';
 import Footer from '@/components/Footer';
 import mockStocks from '@/data/mockStocks';
 import { Button } from '@/components/ui/button';
@@ -15,6 +17,7 @@ const Index = () => {
   const [selectedStock, setSelectedStock] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [authDialogOpen, setAuthDialogOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleStockClick = (stock) => {
     setSelectedStock({
@@ -26,6 +29,10 @@ const Index = () => {
 
   const handleGetStarted = () => {
     setAuthDialogOpen(true);
+  };
+
+  const handleHowItWorks = () => {
+    navigate('/how-it-works');
   };
 
   return (
@@ -45,7 +52,7 @@ const Index = () => {
               <Button size="lg" className="bg-finance-blue hover:bg-finance-darkBlue" onClick={handleGetStarted}>
                 Get Started — It's Free
               </Button>
-              <Button size="lg" variant="outline">
+              <Button size="lg" variant="outline" onClick={handleHowItWorks}>
                 See How It Works
               </Button>
             </div>
@@ -179,6 +186,8 @@ const Index = () => {
           </div>
         </div>
       </section>
+      
+      <TestimonialSection />
       
       <FeatureSection />
       

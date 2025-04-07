@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Separator } from '@/components/ui/separator';
 
@@ -8,7 +7,7 @@ const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="font-bold text-xl text-finance-darkBlue mb-4">StockTile</h3>
+            <h3 className="font-bold text-xl text-finance-darkBlue mb-4">Stockerr</h3>
             <p className="text-gray-600 mb-4">
               Your one-stop platform for stock market insights and analysis.
             </p>
@@ -59,7 +58,7 @@ const Footer: React.FC = () => {
         <Separator className="my-8" />
         
         <div className="flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-500 text-sm">© 2023 StockTile. All rights reserved.</p>
+          <p className="text-gray-500 text-sm">© 2023 Stockerr. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className="text-gray-500 hover:text-finance-blue text-sm">Terms of Service</a>
             <a href="#" className="text-gray-500 hover:text-finance-blue text-sm">Privacy Policy</a>

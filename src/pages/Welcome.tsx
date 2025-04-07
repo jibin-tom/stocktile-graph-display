@@ -28,7 +28,7 @@ const Welcome = () => {
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Navbar />
       
-      <main className="flex-grow flex flex-col items-center justify-center p-4">
+      <main className="flex-grow flex flex-col items-center justify-center p-4 pt-24">
         <div className="max-w-3xl w-full mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
           <div className="p-8 flex flex-col items-center">
             <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
