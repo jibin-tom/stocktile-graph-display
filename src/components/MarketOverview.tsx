@@ -55,12 +55,14 @@ const MarketOverview: React.FC = () => {
           ))}
         </div>
       </CardContent>
-      <style jsx>{`
-        @keyframes slide-in {
-          0% { transform: translateX(100%); }
-          100% { transform: translateX(-100%); }
-        }
-      `}</style>
+      <style>
+        {`
+          @keyframes slide-in {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+          }
+        `}
+      </style>
     </Card>
   );
 };

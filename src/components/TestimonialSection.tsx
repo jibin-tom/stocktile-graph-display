@@ -121,26 +121,28 @@ const TestimonialSection = () => {
         </div>
       </div>
       
-      <style jsx>{`
-        @keyframes gradient-bg {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        
-        @keyframes star-pulse {
-          0% { transform: scale(1); opacity: 0.8; }
-          50% { transform: scale(1.4); opacity: 1; }
-          100% { transform: scale(1); opacity: 0.8; }
-        }
-        
-        @keyframes float {
-          0% { transform: translate(0, 0) rotate(0deg); }
-          33% { transform: translate(30px, -50px) rotate(120deg); }
-          66% { transform: translate(-20px, 20px) rotate(240deg); }
-          100% { transform: translate(0, 0) rotate(360deg); }
-        }
-      `}</style>
+      <style>
+        {`
+          @keyframes gradient-bg {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+          }
+          
+          @keyframes star-pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.4); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+          }
+          
+          @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -50px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+          }
+        `}
+      </style>
     </section>
   );
 };
