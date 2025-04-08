@@ -93,11 +93,59 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'pulse-rainbow': {
+					'0%, 100%': { 
+						boxShadow: '0 0 15px 5px rgba(255, 0, 0, 0.7)' 
+					},
+					'25%': { 
+						boxShadow: '0 0 15px 5px rgba(255, 255, 0, 0.7)' 
+					},
+					'50%': { 
+						boxShadow: '0 0 15px 5px rgba(0, 255, 0, 0.7)' 
+					},
+					'75%': { 
+						boxShadow: '0 0 15px 5px rgba(0, 0, 255, 0.7)' 
+					}
+				},
+				'spin-slow': {
+					from: {
+						transform: 'rotate(0deg)'
+					},
+					to: {
+						transform: 'rotate(360deg)'
+					}
+				},
+				'color-cycle': {
+					'0%, 100%': { 
+						color: '#3b82f6' 
+					},
+					'25%': { 
+						color: '#ef4444' 
+					},
+					'50%': { 
+						color: '#22c55e' 
+					},
+					'75%': { 
+						color: '#f59e0b' 
+					}
+				},
+				'float': {
+					'0%, 100%': { 
+						transform: 'translateY(0)' 
+					},
+					'50%': { 
+						transform: 'translateY(-10px)' 
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'pulse-rainbow': 'pulse-rainbow 4s infinite',
+				'spin-slow': 'spin-slow 6s linear infinite',
+				'color-cycle': 'color-cycle 4s infinite',
+				'float': 'float 3s ease-in-out infinite'
 			}
 		}
 	},
