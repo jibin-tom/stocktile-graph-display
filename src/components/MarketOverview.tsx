@@ -5,12 +5,12 @@ import { ArrowUp, ArrowDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const indexData = [
-  { name: 'S&P 500', value: 4863.93, change: 1.02, changePercent: 0.02, url: 'https://www.marketwatch.com/investing/index/spx' },
-  { name: 'Dow 30', value: 38239.66, change: 125.82, changePercent: 0.33, url: 'https://www.marketwatch.com/investing/index/djia' },
-  { name: 'Nasdaq', value: 17597.08, change: -8.14, changePercent: -0.05, url: 'https://www.marketwatch.com/investing/index/comp' },
-  { name: 'Russell 2000', value: 2028.97, change: 11.37, changePercent: 0.56, url: 'https://www.marketwatch.com/investing/index/rut' },
-  { name: 'Nifty 50', value: 22055.20, change: 162.78, changePercent: 0.74, url: 'https://www.nseindia.com/get-quotes/equity?symbol=NIFTY%2050' },
-  { name: 'Shanghai', value: 3032.63, change: -22.73, changePercent: -0.74, url: 'https://www.marketwatch.com/investing/index/shcomp?countrycode=cn' },
+  { name: 'S&P 500', value: 4863.93, change: 1.02, changePercent: 0.02 },
+  { name: 'Dow 30', value: 38239.66, change: 125.82, changePercent: 0.33 },
+  { name: 'Nasdaq', value: 17597.08, change: -8.14, changePercent: -0.05 },
+  { name: 'Russell 2000', value: 2028.97, change: 11.37, changePercent: 0.56 },
+  { name: 'Nifty 50', value: 22055.20, change: 162.78, changePercent: 0.74 },
+  { name: 'Shanghai', value: 3032.63, change: -22.73, changePercent: -0.74 },
 ];
 
 const MarketOverview: React.FC = () => {
@@ -24,10 +24,6 @@ const MarketOverview: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleIndexClick = (url: string) => {
-    window.open(url, '_blank', 'noopener,noreferrer');
-  };
-
   return (
     <Card className="overflow-hidden bg-white shadow-md border-2 border-blue-100 hover:shadow-xl transition-all duration-300">
       <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50">
@@ -39,8 +35,7 @@ const MarketOverview: React.FC = () => {
             {[...indexData, ...indexData].map((index, idx) => (
               <div 
                 key={`${index.name}-${idx}`}
-                className="flex-none min-w-[180px] bg-white p-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 cursor-pointer hover:scale-105"
-                onClick={() => handleIndexClick(index.url)}
+                className="flex-none min-w-[180px] bg-white p-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100"
               >
                 <div className="text-md font-semibold text-gray-800">{index.name}</div>
                 <div className="text-lg font-bold">{index.value.toLocaleString()}</div>
