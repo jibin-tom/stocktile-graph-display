@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ChevronDown, Search, DollarSign, BarChart2, TrendingUp, Newspaper, BookOpen, Globe } from 'lucide-react';
@@ -36,10 +35,26 @@ const Navbar = () => {
   const [filteredStocks, setFilteredStocks] = useState([]);
   const [authDialogOpen, setAuthDialogOpen] = useState(false);
   const [authDialogMode, setAuthDialogMode] = useState<'login' | 'register'>('login');
+  const [colorIndex, setColorIndex] = useState(0);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const { user } = useAuth();
+  
+  const logoColors = [
+    'from-blue-600 to-purple-600',
+    'from-purple-500 to-pink-500',
+    'from-green-500 to-blue-500',
+    'from-yellow-500 to-red-500',
+    'from-indigo-500 to-cyan-500'
+  ];
 
-  // Filter stocks based on search query
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setColorIndex((prevIndex) => (prevIndex + 1) % logoColors.length);
+    }, 3000);
+    
+    return () => clearInterval(interval);
+  }, []);
+
   useEffect(() => {
     if (searchQuery.trim() === '') {
       setFilteredStocks([]);
@@ -63,26 +78,23 @@ const Navbar = () => {
   };
 
   const handleOpenLogin = () => {
-    setAuthDialogMode('login'); // Explicitly set to login mode
+    setAuthDialogMode('login');
     setAuthDialogOpen(true);
   };
 
   const handleOpenSignup = () => {
-    setAuthDialogMode('register'); // Explicitly set to register mode
+    setAuthDialogMode('register');
     setAuthDialogOpen(true);
   };
 
-  // Fix to keep focus in search input when typing
   const handleSearchFocus = () => {
     if (searchQuery.trim() !== '') {
       setOpen(true);
     }
   };
 
-  // Fix to maintain focus on input when popover opens
   useEffect(() => {
     if (open && searchInputRef.current) {
-      // Use a small timeout to ensure the popover is rendered
       setTimeout(() => {
         searchInputRef.current?.focus();
       }, 10);
@@ -97,7 +109,14 @@ const Navbar = () => {
     <nav className="bg-white shadow-sm py-3 px-4 md:px-6 fixed top-0 left-0 right-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-8">
-          <div className="font-bold text-2xl text-finance-darkBlue">Stockerr</div>
+          <div 
+            className={`font-bold text-2xl bg-gradient-to-r ${logoColors[colorIndex]} bg-clip-text text-transparent transition-colors duration-1000`}
+            style={{
+              animation: "pulse 2s infinite"
+            }}
+          >
+            Stockerr
+          </div>
           <div className="hidden md:flex items-center space-x-6">
             <NavigationMenu>
               <NavigationMenuList>
