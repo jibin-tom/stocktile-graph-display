@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
@@ -95,13 +96,17 @@ const Index = () => {
             </div>
           </div>
           <div className="md:w-1/2 flex flex-col items-center relative">
-            <div className="absolute inset-0 rounded-lg animate-rainbow-trail"></div>
-            <img 
-              src="/lovable-uploads/d5af928d-133e-4280-8b4f-0390db8a01d0.png" 
-              alt="Stock trader with sunglasses" 
-              className={`rounded-lg max-w-full h-auto shadow-lg transition-all duration-1000 relative z-10 ${titleAnimation ? 'opacity-100 scale-100 rotate-0' : 'opacity-90 scale-95 rotate-1'}`}
-              style={{ maxHeight: "350px" }}
-            />
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center justify-center w-full h-full">
+                <div className="animate-border-flow"></div>
+              </div>
+              <img 
+                src="/lovable-uploads/d5af928d-133e-4280-8b4f-0390db8a01d0.png" 
+                alt="Stock trader with sunglasses" 
+                className={`rounded-lg max-w-full h-auto shadow-lg transition-all duration-1000 relative z-10 ${titleAnimation ? 'opacity-100 scale-100 rotate-0' : 'opacity-90 scale-95 rotate-1'}`}
+                style={{ maxHeight: "350px" }}
+              />
+            </div>
             <p className={`text-lg mt-4 font-bold text-center px-4 transition-all duration-700 delay-700 ${titleAnimation ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
               സ്റ്റോക്കിങ്ങ് എന്താണെന്ന് അറിയോo ചെയ്യാം, അതിൽ പൈസ ഇട്ടിട്ടുമുണ്ട് പൈസ പോയിട്ടുമുണ്ട്....
             </p>
@@ -111,7 +116,6 @@ const Index = () => {
       
       <section className="py-8 px-4">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl font-bold mb-4 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent animate-pulse">Market Overview</h2>
           <MarketOverview />
         </div>
       </section>
@@ -280,6 +284,46 @@ const Index = () => {
       
       <style>
         {`
+          @keyframes border-flow {
+            0% {
+              transform: rotate(0deg);
+              border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+              background-position: 0% 0%;
+            }
+            25% {
+              transform: rotate(-90deg);
+              border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
+              background-position: 25% 50%;
+            }
+            50% {
+              transform: rotate(-180deg);
+              border-radius: 50% 50% 20% 80% / 25% 80% 20% 75%;
+              background-position: 50% 100%;
+            }
+            75% {
+              transform: rotate(-270deg);
+              border-radius: 30% 70% 70% 30% / 30% 52% 48% 70%;
+              background-position: 75% 50%;
+            }
+            100% {
+              transform: rotate(-360deg);
+              border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+              background-position: 0% 0%;
+            }
+          }
+          
+          .animate-border-flow {
+            position: absolute;
+            width: calc(100% + 30px);
+            height: calc(100% + 30px);
+            background: linear-gradient(90deg, #ff0080, #ff8c00, #ffed00, #00ff80, #00cfff, #cc00ff, #ff0080);
+            background-size: 600% 600%;
+            animation: border-flow 8s linear infinite;
+            filter: blur(8px);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            z-index: 1;
+          }
+          
           @keyframes float-random {
             0% { transform: translate(0, 0) rotate(0deg); }
             25% { transform: translate(50px, -30px) rotate(90deg); }
@@ -291,22 +335,6 @@ const Index = () => {
           @keyframes bounce-slow {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
-          }
-          
-          .animate-rainbow-trail {
-            background: conic-gradient(
-              from 0deg at 50% 50%,
-              #ff0000, #ff9900, #ffff00, #33cc33, #3399ff, #9966ff, #ff0000
-            );
-            filter: blur(15px);
-            opacity: 0.7;
-            animation: spin 4s linear infinite;
-            transform-origin: center;
-          }
-          
-          @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
           }
         `}
       </style>

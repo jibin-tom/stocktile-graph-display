@@ -105,14 +105,29 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
     setMode(mode === 'login' ? 'register' : 'login');
   };
 
+  const dialogClass = mode === 'login' ? 
+    'bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 border-2 border-indigo-200' : 
+    'bg-gradient-to-br from-purple-50 via-pink-50 to-red-50 border-2 border-pink-200';
+    
+  const titleClass = mode === 'login' ? 
+    'bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent' : 
+    'bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent';
+
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className={`sm:max-w-[425px] ${dialogClass} shadow-xl animate-in`}>
+        <div className="absolute inset-0 rounded-lg overflow-hidden -z-10">
+          <div className="absolute inset-0 bg-white/40 backdrop-blur-sm"></div>
+          <div className="absolute top-0 w-full h-2 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
+          <div className="absolute -bottom-5 -left-5 w-24 h-24 rounded-full bg-blue-500/20 blur-xl"></div>
+          <div className="absolute -top-5 -right-5 w-24 h-24 rounded-full bg-pink-500/20 blur-xl"></div>
+        </div>
+        
         <DialogHeader>
-          <DialogTitle>
+          <DialogTitle className={`text-xl font-bold ${titleClass}`}>
             {mode === 'login' ? 'Log in to your account' : 'Create an account'}
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-gray-600">
             {mode === 'login' 
               ? 'Enter your email below to log in to your account.' 
               : 'Enter your details below to create your account.'}
@@ -131,7 +146,11 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
         <DialogFooter className="justify-center mt-6">
           <div className="text-sm text-center">
             {mode === 'login' ? "Don't have an account? " : "Already have an account? "}
-            <Button variant="link" className="p-0 h-auto" onClick={switchMode}>
+            <Button 
+              variant="link" 
+              className={`p-0 h-auto font-medium ${mode === 'login' ? 'text-purple-600 hover:text-purple-800' : 'text-blue-600 hover:text-blue-800'}`} 
+              onClick={switchMode}
+            >
               {mode === 'login' ? 'Sign up' : 'Log in'}
             </Button>
           </div>

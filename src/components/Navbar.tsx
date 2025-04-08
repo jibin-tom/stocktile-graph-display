@@ -322,8 +322,21 @@ const Navbar = () => {
             <UserMenu />
           ) : (
             <>
-              <Button variant="outline" size="sm" onClick={handleOpenLogin}>Log In</Button>
-              <Button size="sm" onClick={handleOpenSignup}>Sign Up</Button>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={handleOpenLogin}
+                className="border-blue-300 text-blue-600 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-400 transition-all duration-300 font-medium shadow-sm hover:shadow"
+              >
+                Log In
+              </Button>
+              <Button 
+                size="sm" 
+                onClick={handleOpenSignup}
+                className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 animate-pulse-subtle"
+              >
+                Sign Up
+              </Button>
             </>
           )}
         </div>
@@ -334,6 +347,19 @@ const Navbar = () => {
         onOpenChange={setAuthDialogOpen} 
         initialMode={authDialogMode} 
       />
+      
+      <style>
+        {`
+          @keyframes pulse-subtle {
+            0%, 100% {
+              box-shadow: 0 0 0 rgba(168, 85, 247, 0.4);
+            }
+            50% {
+              box-shadow: 0 0 10px rgba(168, 85, 247, 0.6);
+            }
+          }
+        `}
+      </style>
     </nav>
   );
 };

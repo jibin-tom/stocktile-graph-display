@@ -154,6 +154,33 @@ export default {
 						transform: 'rotate(360deg)'
 					}
 				},
+				'border-flow': {
+					'0%': {
+						transform: 'rotate(0deg)',
+						borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%',
+						backgroundPosition: '0% 0%'
+					},
+					'25%': {
+						transform: 'rotate(-90deg)',
+						borderRadius: '58% 42% 75% 25% / 76% 46% 54% 24%',
+						backgroundPosition: '25% 50%'
+					},
+					'50%': {
+						transform: 'rotate(-180deg)',
+						borderRadius: '50% 50% 20% 80% / 25% 80% 20% 75%',
+						backgroundPosition: '50% 100%'
+					},
+					'75%': {
+						transform: 'rotate(-270deg)',
+						borderRadius: '30% 70% 70% 30% / 30% 52% 48% 70%',
+						backgroundPosition: '75% 50%'
+					},
+					'100%': {
+						transform: 'rotate(-360deg)',
+						borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%',
+						backgroundPosition: '0% 0%'
+					}
+				},
 				'float-random': {
 					'0%': { transform: 'translate(0, 0) rotate(0deg)' },
 					'25%': { transform: 'translate(50px, -30px) rotate(90deg)' },
@@ -164,6 +191,14 @@ export default {
 				'bounce-slow': {
 					'0%, 100%': { transform: 'translateY(0)' },
 					'50%': { transform: 'translateY(-10px)' }
+				},
+				'pulse-subtle': {
+					'0%, 100%': {
+						boxShadow: '0 0 0 rgba(168, 85, 247, 0.4)'
+					},
+					'50%': {
+						boxShadow: '0 0 10px rgba(168, 85, 247, 0.6)'
+					}
 				}
 			},
 			animation: {
@@ -176,7 +211,9 @@ export default {
 				'market-scroll': 'market-scroll 30s linear infinite',
 				'rainbow-rotate': 'rainbow-rotate 4s linear infinite',
 				'float-random': 'float-random 20s linear infinite',
-				'bounce-slow': 'bounce-slow 3s ease-in-out infinite'
+				'bounce-slow': 'bounce-slow 3s ease-in-out infinite',
+				'border-flow': 'border-flow 8s linear infinite',
+				'pulse-subtle': 'pulse-subtle 2s infinite'
 			}
 		}
 	},
