@@ -9,6 +9,8 @@ const indexData = [
   { name: 'Dow 30', value: 38239.66, change: 125.82, changePercent: 0.33 },
   { name: 'Nasdaq', value: 17597.08, change: -8.14, changePercent: -0.05 },
   { name: 'Russell 2000', value: 2028.97, change: 11.37, changePercent: 0.56 },
+  { name: 'Nifty 50', value: 22055.20, change: 162.78, changePercent: 0.74 },
+  { name: 'Shanghai', value: 3032.63, change: -22.73, changePercent: -0.74 },
 ];
 
 const MarketOverview: React.FC = () => {
@@ -23,43 +25,46 @@ const MarketOverview: React.FC = () => {
   }, []);
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-xl">Market Overview</CardTitle>
+    <Card className="overflow-hidden bg-white shadow-md border-2 border-blue-100 hover:shadow-xl transition-all duration-300">
+      <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50">
+        <CardTitle className="text-xl font-bold text-blue-800">Market Overview</CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 overflow-hidden">
-          {indexData.map((index, idx) => (
-            <div 
-              key={index.name} 
-              className="flex flex-col transform transition-all duration-700"
-              style={{
-                transform: `translateX(${(idx - activeIndex + indexData.length) % indexData.length * 5}%)`,
-                animation: `slide-in 15s linear infinite ${idx * 0.5}s`
-              }}
-            >
-              <div className="text-sm text-gray-500">{index.name}</div>
-              <div className="text-lg font-bold">{index.value.toLocaleString()}</div>
-              <div className={cn(
-                "flex items-center text-sm",
-                index.change >= 0 ? "stock-up" : "stock-down"
-              )}>
-                {index.change >= 0 ? (
-                  <ArrowUp className="h-3 w-3 mr-1" />
-                ) : (
-                  <ArrowDown className="h-3 w-3 mr-1" />
-                )}
-                <span>{Math.abs(index.change).toFixed(2)} ({Math.abs(index.changePercent).toFixed(2)}%)</span>
+      <CardContent className="p-4">
+        <div className="overflow-hidden">
+          <div className="flex space-x-4 animate-market-scroll">
+            {[...indexData, ...indexData].map((index, idx) => (
+              <div 
+                key={`${index.name}-${idx}`}
+                className="flex-none min-w-[180px] bg-white p-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100"
+              >
+                <div className="text-md font-semibold text-gray-800">{index.name}</div>
+                <div className="text-lg font-bold">{index.value.toLocaleString()}</div>
+                <div className={cn(
+                  "flex items-center text-sm",
+                  index.change >= 0 ? "stock-up" : "stock-down"
+                )}>
+                  {index.change >= 0 ? (
+                    <ArrowUp className="h-3 w-3 mr-1" />
+                  ) : (
+                    <ArrowDown className="h-3 w-3 mr-1" />
+                  )}
+                  <span>{Math.abs(index.change).toFixed(2)} ({Math.abs(index.changePercent).toFixed(2)}%)</span>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </CardContent>
       <style>
         {`
-          @keyframes slide-in {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
+          @keyframes market-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          
+          .animate-market-scroll {
+            display: flex;
+            animation: market-scroll 30s linear infinite;
           }
         `}
       </style>

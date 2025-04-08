@@ -137,6 +137,33 @@ export default {
 					'50%': { 
 						transform: 'translateY(-10px)' 
 					}
+				},
+				'market-scroll': {
+					'0%': {
+						transform: 'translateX(0)'
+					},
+					'100%': {
+						transform: 'translateX(-50%)'
+					}
+				},
+				'rainbow-rotate': {
+					'0%': {
+						transform: 'rotate(0deg)'
+					},
+					'100%': {
+						transform: 'rotate(360deg)'
+					}
+				},
+				'float-random': {
+					'0%': { transform: 'translate(0, 0) rotate(0deg)' },
+					'25%': { transform: 'translate(50px, -30px) rotate(90deg)' },
+					'50%': { transform: 'translate(100px, 40px) rotate(180deg)' },
+					'75%': { transform: 'translate(0px, 100px) rotate(270deg)' },
+					'100%': { transform: 'translate(0, 0) rotate(360deg)' }
+				},
+				'bounce-slow': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' }
 				}
 			},
 			animation: {
@@ -145,7 +172,11 @@ export default {
 				'pulse-rainbow': 'pulse-rainbow 4s infinite',
 				'spin-slow': 'spin-slow 6s linear infinite',
 				'color-cycle': 'color-cycle 4s infinite',
-				'float': 'float 3s ease-in-out infinite'
+				'float': 'float 3s ease-in-out infinite',
+				'market-scroll': 'market-scroll 30s linear infinite',
+				'rainbow-rotate': 'rainbow-rotate 4s linear infinite',
+				'float-random': 'float-random 20s linear infinite',
+				'bounce-slow': 'bounce-slow 3s ease-in-out infinite'
 			}
 		}
 	},

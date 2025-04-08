@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
-import { LineChart, Line, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, ResponsiveContainer, XAxis, YAxis, ReferenceLine, Tooltip } from 'recharts';
 import { cn } from '@/lib/utils';
 import { ArrowUp, ArrowDown } from 'lucide-react';
 
@@ -28,6 +28,10 @@ const StockTile: React.FC<StockTileProps> = ({
   const changeClass = isPositive ? 'stock-up' : 'stock-down';
   const chartClass = isPositive ? 'mini-chart-up' : 'mini-chart-down';
   const [isHovered, setIsHovered] = useState(false);
+  
+  // Find min and max values for the chart
+  const minValue = Math.min(...chartData.map(d => d.value)) * 0.995;
+  const maxValue = Math.max(...chartData.map(d => d.value)) * 1.005;
   
   return (
     <Card 
@@ -59,9 +63,43 @@ const StockTile: React.FC<StockTileProps> = ({
         </div>
       </div>
       
-      <div className={`h-16 mt-2 ${isHovered ? 'animate-pulse' : ''}`}>
+      <div className={`h-20 mt-2 ${isHovered ? 'animate-pulse' : ''}`}>
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={chartData} margin={{ top: 5, right: 5, bottom: 5, left: 5 }}>
+          <LineChart 
+            data={chartData} 
+            margin={{ top: 5, right: 5, bottom: 5, left: 5 }}
+          >
+            <defs>
+              <linearGradient id={`gradientUp-${symbol}`} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#22c55e" stopOpacity={0.8}/>
+                <stop offset="95%" stopColor="#22c55e" stopOpacity={0.2}/>
+              </linearGradient>
+              <linearGradient id={`gradientDown-${symbol}`} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#ef4444" stopOpacity={0.8}/>
+                <stop offset="95%" stopColor="#ef4444" stopOpacity={0.2}/>
+              </linearGradient>
+            </defs>
+            {isHovered && (
+              <>
+                <XAxis hide={true} />
+                <YAxis hide={true} domain={[minValue, maxValue]} />
+                <Tooltip 
+                  formatter={(value) => [`$${value}`, 'Price']}
+                  labelFormatter={() => ''}
+                  contentStyle={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    borderColor: isPositive ? '#22c55e' : '#ef4444',
+                    borderRadius: '4px',
+                    fontSize: '12px'
+                  }}
+                />
+              </>
+            )}
+            <ReferenceLine 
+              y={chartData[0].value} 
+              stroke={isPositive ? "rgba(34, 197, 94, 0.3)" : "rgba(239, 68, 68, 0.3)"} 
+              strokeDasharray="3 3" 
+            />
             <Line 
               type="monotone" 
               dataKey="value" 
@@ -70,6 +108,8 @@ const StockTile: React.FC<StockTileProps> = ({
               dot={false}
               isAnimationActive={true}
               className={chartClass}
+              fill={isHovered ? `url(#gradient${isPositive ? 'Up' : 'Down'}-${symbol})` : 'none'}
+              activeDot={{ r: 4, stroke: isPositive ? "#22c55e" : "#ef4444", strokeWidth: 2, fill: "#fff" }}
             />
           </LineChart>
         </ResponsiveContainer>

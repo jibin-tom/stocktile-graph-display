@@ -36,7 +36,7 @@ const FeatureSection: React.FC = () => {
   return (
     <section className="py-12 px-4">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 bg-clip-text text-transparent">
+        <h2 className="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 bg-clip-text text-transparent animate-pulse">
           Powerful Tools for Smarter Investing
         </h2>
         
@@ -59,8 +59,7 @@ const FeatureSection: React.FC = () => {
                     {feature.icon}
                   </div>
                 </div>
-                <h3 className={`text-xl font-medium mb-2 transition-all duration-300
-                              ${hoveredIndex === index ? 'bg-gradient-to-r ' + feature.gradient + ' bg-clip-text text-transparent' : ''}`}>
+                <h3 className={`text-xl font-medium mb-2 transition-all duration-300 text-gray-900`}>
                   {feature.title}
                 </h3>
                 <p className="text-gray-600">{feature.description}</p>

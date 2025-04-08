@@ -106,7 +106,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow-sm py-3 px-4 md:px-6 fixed top-0 left-0 right-0 z-50">
+    <nav className="bg-white shadow-md py-4 px-4 md:px-6 fixed top-0 left-0 right-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-8">
           <div 
@@ -121,7 +121,7 @@ const Navbar = () => {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>
+                  <NavigationMenuTrigger className="bg-gradient-to-r from-blue-100 to-purple-100 hover:from-blue-200 hover:to-purple-200 font-semibold text-blue-800 hover:text-blue-900 transition-all duration-300">
                     Markets
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
@@ -190,7 +190,7 @@ const Navbar = () => {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>
+                  <NavigationMenuTrigger className="bg-gradient-to-r from-green-100 to-teal-100 hover:from-green-200 hover:to-teal-200 font-semibold text-green-800 hover:text-green-900 transition-all duration-300">
                     Watchlists
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
@@ -218,7 +218,7 @@ const Navbar = () => {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>
+                  <NavigationMenuTrigger className="bg-gradient-to-r from-yellow-100 to-orange-100 hover:from-yellow-200 hover:to-orange-200 font-semibold text-yellow-800 hover:text-yellow-900 transition-all duration-300">
                     News
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
