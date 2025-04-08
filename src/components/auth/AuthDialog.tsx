@@ -107,36 +107,83 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>
-            {mode === 'login' ? 'Log in to your account' : 'Create an account'}
+      <DialogContent className="sm:max-w-[425px] border-0 overflow-hidden animate-dialog-appear">
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 opacity-90 -z-10" />
+        <div className="absolute inset-0 overflow-hidden -z-5">
+          {[...Array(10)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute rounded-full bg-gradient-to-br from-indigo-400/20 to-purple-400/20"
+              style={{
+                width: `${Math.random() * 80 + 20}px`,
+                height: `${Math.random() * 80 + 20}px`,
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                filter: 'blur(8px)',
+                opacity: 0.3,
+                transform: `scale(${Math.random() * 0.5 + 0.5})`,
+                animation: `float-bubble ${10 + i * 2}s ease-in-out infinite alternate`
+              }}
+            />
+          ))}
+        </div>
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" />
+        
+        <DialogHeader className="relative">
+          <DialogTitle className="text-2xl font-bold text-center bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-700 bg-clip-text text-transparent pb-1">
+            {mode === 'login' ? 'Welcome Back!' : 'Join Stockerr Today'}
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-center text-gray-600">
             {mode === 'login' 
-              ? 'Enter your email below to log in to your account.' 
-              : 'Enter your details below to create your account.'}
+              ? 'Enter your details below to access your account.' 
+              : 'Create your account to start tracking your investments.'}
           </DialogDescription>
         </DialogHeader>
         
-        <AuthForm 
-          mode={mode}
-          onSubmit={handleSubmit}
-          isLoading={loading}
-          submitting={submitting}
-        />
+        <div className="relative">
+          <AuthForm 
+            mode={mode}
+            onSubmit={handleSubmit}
+            isLoading={loading}
+            submitting={submitting}
+          />
+        </div>
         
         <SocialAuthButtons onGoogleSignup={handleGoogleSignup} />
         
         <DialogFooter className="justify-center mt-6">
           <div className="text-sm text-center">
             {mode === 'login' ? "Don't have an account? " : "Already have an account? "}
-            <Button variant="link" className="p-0 h-auto" onClick={switchMode}>
+            <Button 
+              variant="link" 
+              className="p-0 h-auto bg-gradient-to-r from-indigo-700 to-purple-700 bg-clip-text text-transparent hover:from-purple-700 hover:to-pink-700 transition-all duration-300 font-medium" 
+              onClick={switchMode}
+            >
               {mode === 'login' ? 'Sign up' : 'Log in'}
             </Button>
           </div>
         </DialogFooter>
       </DialogContent>
+
+      <style>
+        {`
+          @keyframes dialog-appear {
+            0% { opacity: 0; transform: scale(0.95) translateY(10px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+          }
+          
+          .animate-dialog-appear {
+            animation: dialog-appear 0.3s ease-out forwards;
+            box-shadow: 0 10px 25px -5px rgba(124, 58, 237, 0.3),
+                        0 8px 15px -6px rgba(219, 39, 119, 0.2);
+          }
+          
+          @keyframes float-bubble {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-20px) scale(1.2); }
+          }
+        `}
+      </style>
     </Dialog>
   );
 };
