@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
@@ -96,7 +95,7 @@ const Index = () => {
             </div>
           </div>
           <div className="md:w-1/2 flex flex-col items-center relative">
-            <div className="relative rainbow-border">
+            <div className="relative aura-border">
               <img 
                 src="/lovable-uploads/d5af928d-133e-4280-8b4f-0390db8a01d0.png" 
                 alt="Stock trader with sunglasses" 
@@ -307,6 +306,32 @@ const Index = () => {
           @keyframes bounce-slow {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
+          }
+          
+          @keyframes aura-animation {
+            0% { background-position: 0% 0%; }
+            100% { background-position: -200% 0%; }
+          }
+          
+          .aura-border {
+            position: relative;
+            border-radius: 0.5rem;
+            z-index: 0;
+          }
+          
+          .aura-border::before {
+            content: "";
+            position: absolute;
+            inset: -4px;
+            z-index: -1;
+            border-radius: 0.75rem;
+            background: linear-gradient(270deg, 
+              #ff0000, #ff7f00, #ffff00, 
+              #00ff00, #0000ff, #4b0082, 
+              #8b00ff, #ff0000);
+            background-size: 200% 100%;
+            animation: aura-animation 4s linear infinite;
+            filter: blur(4px);
           }
         `}
       </style>

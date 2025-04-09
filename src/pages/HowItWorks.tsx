@@ -9,7 +9,7 @@ const HowItWorks = () => {
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Navbar />
       
-      <main className="flex-grow flex items-center justify-center p-8">
+      <main className="flex-grow flex items-center justify-center p-6 pt-24">
         <div className="max-w-4xl w-full mx-auto bg-white rounded-xl shadow-lg overflow-hidden p-6 relative">
           <div 
             className="absolute inset-0 bg-gradient-to-r from-purple-400/20 via-pink-400/20 to-blue-400/20 animate-pulse opacity-60"
@@ -22,16 +22,16 @@ const HowItWorks = () => {
             <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-pulse">
               How Stockerr Works
             </h2>
-            <div className="relative rounded-lg overflow-hidden">
+            <div className="relative rounded-lg overflow-hidden max-w-full">
               <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 animate-spin-slow rounded-lg blur-md"></div>
               <GifImage 
                 src="https://media1.tenor.com/m/_5CeDMCoGJEAAAAd/salim-kumar.gif" 
                 alt="How Stockerr Works" 
-                className="w-auto max-h-[70vh] object-contain rounded-lg mx-auto relative"
+                className="w-auto max-h-[60vh] object-contain rounded-lg mx-auto relative"
                 width="100%"
                 height="auto"
                 loadingComponent={
-                  <div className="animate-pulse bg-gray-200 rounded-md h-[50vh] w-full flex items-center justify-center">
+                  <div className="animate-pulse bg-gray-200 rounded-md h-[40vh] w-full flex items-center justify-center">
                     <p className="text-gray-500">Loading GIF...</p>
                   </div>
                 }

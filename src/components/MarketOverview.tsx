@@ -1,8 +1,9 @@
 
-import React, { useEffect, useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import React from 'react';
+import { Card, CardContent } from '@/components/ui/card';
 import { ArrowUp, ArrowDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const indexData = [
   { 
@@ -50,39 +51,30 @@ const indexData = [
 ];
 
 const MarketOverview: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex(prev => (prev + 1) % indexData.length);
-    }, 3000);
-    
-    return () => clearInterval(interval);
-  }, []);
-
+  const isMobile = useIsMobile();
+  
   const handleOpenMarket = (url: string) => {
     window.open(url, '_blank');
   };
 
   return (
-    <div className="flex flex-col md:flex-row items-start gap-4">
-      <div>
-        <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent animate-pulse mb-4">
-          Market Overview
-        </h2>
-      </div>
+    <div className="flex flex-col gap-2">
+      <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-3">
+        Market Overview
+      </h2>
+      
       <Card className="flex-1 overflow-hidden bg-white shadow-md border-2 border-blue-100 hover:shadow-xl transition-all duration-300">
-        <CardContent className="p-4">
+        <CardContent className={`p-4 ${isMobile ? 'px-2' : 'px-4'}`}>
           <div className="overflow-hidden">
-            <div className="flex space-x-4 animate-market-scroll">
+            <div className={`flex space-x-4 animate-market-scroll ${isMobile ? 'space-x-2' : 'space-x-4'}`}>
               {[...indexData, ...indexData].map((index, idx) => (
                 <div 
                   key={`${index.name}-${idx}`}
-                  className="flex-none min-w-[180px] bg-white p-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 cursor-pointer hover:bg-blue-50"
+                  className={`flex-none ${isMobile ? 'min-w-[140px]' : 'min-w-[180px]'} bg-white p-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 cursor-pointer hover:bg-blue-50`}
                   onClick={() => handleOpenMarket(index.url)}
                 >
-                  <div className="text-md font-semibold text-gray-800">{index.name}</div>
-                  <div className="text-lg font-bold">{index.value.toLocaleString()}</div>
+                  <div className={`${isMobile ? 'text-sm' : 'text-md'} font-semibold text-gray-800`}>{index.name}</div>
+                  <div className={`${isMobile ? 'text-base' : 'text-lg'} font-bold`}>{index.value.toLocaleString()}</div>
                   <div className={cn(
                     "flex items-center text-sm",
                     index.change >= 0 ? "stock-up" : "stock-down"
@@ -108,7 +100,13 @@ const MarketOverview: React.FC = () => {
             
             .animate-market-scroll {
               display: flex;
-              animation: market-scroll 30s linear infinite;
+              animation: market-scroll ${isMobile ? '20s' : '30s'} linear infinite;
+            }
+
+            @media (max-width: 768px) {
+              .animate-market-scroll:hover {
+                animation-play-state: paused;
+              }
             }
           `}
         </style>
