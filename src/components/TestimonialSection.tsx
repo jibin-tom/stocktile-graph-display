@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Star } from 'lucide-react';
 
 const TestimonialSection = () => {
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [animate, setAnimate] = useState(false);
   const [colorIndex, setColorIndex] = useState(0);
   
@@ -12,16 +13,38 @@ const TestimonialSection = () => {
     'from-green-400 via-teal-500 to-cyan-500',
     'from-indigo-500 via-purple-500 to-pink-500',
   ];
+
+  const testimonials = [
+    {
+      image: '/lovable-uploads/86b4b377-c977-435e-afe7-d642426ff16b.png',
+      text: "Stockerr has transformed my investment strategy. The insights and analytics are unmatched!",
+      name: "Rangannan",
+      role: "Stockerr Power User"
+    },
+    {
+      image: '/lovable-uploads/91399f81-e42b-4ccb-84b6-2996983bd8c5.png',
+      text: "The absolute best platform I've ever used. It's like having a crystal ball for the stock market!",
+      name: "Jordan Belfort",
+      role: "Investment Professional"
+    }
+  ];
   
   useEffect(() => {
     // Initial animation
     setAnimate(true);
     
-    // Create periodic animations
+    // Create periodic animations and testimonial rotation
     const animInterval = setInterval(() => {
+      // First, trigger exit animation
       setAnimate(false);
-      setTimeout(() => setAnimate(true), 200);
-    }, 5000);
+      
+      // After exit animation completes, change testimonial and trigger entrance animation
+      setTimeout(() => {
+        setCurrentTestimonial(prev => (prev + 1) % testimonials.length);
+        setAnimate(true);
+      }, 500); // Half a second for exit animation
+      
+    }, 5000); // Change testimonial every 5 seconds
     
     // Rotate through gradients
     const colorInterval = setInterval(() => {
@@ -33,6 +56,8 @@ const TestimonialSection = () => {
       clearInterval(colorInterval);
     };
   }, []);
+
+  const currentItem = testimonials[currentTestimonial];
 
   return (
     <section className="py-16 px-4 relative overflow-hidden">
@@ -72,8 +97,8 @@ const TestimonialSection = () => {
         </h2>
         
         <div className="flex justify-center">
-          <div className={`max-w-md transform hover:scale-105 transition-all duration-300 ${
-            animate ? 'translate-y-0' : 'translate-y-2'
+          <div className={`max-w-md transform transition-all duration-700 ${
+            animate ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-8 opacity-0 scale-95'
           }`}>
             <div className={`bg-white/80 backdrop-blur-sm rounded-xl shadow-xl p-6 flex flex-col items-center relative ${
               animate ? 'translate-y-0' : 'translate-y-2'
@@ -83,8 +108,8 @@ const TestimonialSection = () => {
               <div className="relative mb-4 z-10">
                 <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 rounded-lg blur-md animate-pulse"></div>
                 <img 
-                  src="/lovable-uploads/86b4b377-c977-435e-afe7-d642426ff16b.png" 
-                  alt="Stockerr member testimonial" 
+                  src={currentItem.image}
+                  alt={`${currentItem.name} testimonial`}
                   className={`rounded-lg w-full max-w-xs mx-auto relative z-10 ${
                     animate ? 'rotate-0' : 'rotate-1'
                   } transition-all duration-1000`}
@@ -108,13 +133,19 @@ const TestimonialSection = () => {
               <p className={`italic text-center bg-gradient-to-r from-violet-600 via-pink-500 to-indigo-600 bg-clip-text text-transparent font-medium text-lg z-10 ${
                 animate ? 'opacity-100' : 'opacity-80'
               } transition-all duration-700`}>
-                "Stockerr has transformed my investment strategy. The insights and analytics are unmatched!"
+                "{currentItem.text}"
               </p>
               
               <p className={`font-semibold mt-2 bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent z-10 ${
                 animate ? 'translate-x-0' : 'translate-x-1'
               } transition-all duration-500`}>
-                Stockerr Power User
+                {currentItem.name}
+              </p>
+              
+              <p className={`text-sm mt-1 text-gray-600 z-10 ${
+                animate ? 'opacity-100' : 'opacity-0'
+              } transition-all duration-700`}>
+                {currentItem.role}
               </p>
             </div>
           </div>
