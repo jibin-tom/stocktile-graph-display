@@ -9,7 +9,7 @@ const HowItWorks = () => {
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Navbar />
       
-      <main className="flex-grow flex items-center justify-center p-6 pt-24">
+      <main className="flex-grow flex items-center justify-center p-6 pt-28 md:pt-32">
         <div className="max-w-4xl w-full mx-auto bg-white rounded-xl shadow-lg overflow-hidden p-6 relative">
           <div 
             className="absolute inset-0 bg-gradient-to-r from-purple-400/20 via-pink-400/20 to-blue-400/20 animate-pulse opacity-60"
