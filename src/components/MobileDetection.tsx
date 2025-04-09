@@ -1,7 +1,5 @@
 
 import React from 'react';
-import { AlertDialog, AlertDialogContent } from "@/components/ui/alert-dialog";
-import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { useIsMobile } from '@/hooks/use-mobile';
 
 const MobileDetection: React.FC = () => {
@@ -41,8 +39,7 @@ const MobileDetection: React.FC = () => {
               Desktop View Only
             </h2>
             <p className="text-white/90 text-center mb-4">
-              We're sorry, but Stockerr is currently optimized for desktop viewing experience only. 
-              Please visit us on a desktop device to access all features.
+              We're sorry, but Stockerr is currently available only in desktop mode.
             </p>
             <div className="w-full h-1 bg-gradient-to-r from-purple-400 via-pink-500 to-blue-400 rounded-full my-4"></div>
             <p className="text-white/80 text-center text-sm">

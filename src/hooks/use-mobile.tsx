@@ -9,18 +9,20 @@ export function useIsMobile() {
   React.useEffect(() => {
     // Function to check if the device is mobile
     const checkMobile = () => {
-      // Use user agent as additional check for mobile devices
+      // Use user agent as primary check for mobile devices - this is more reliable
+      // even when "Request Desktop Site" is enabled
       const userAgent = 
         typeof window.navigator === "undefined" ? "" : navigator.userAgent;
       const mobileRegex = 
         /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
       const isMobileDevice = mobileRegex.test(userAgent);
       
-      // Check screen width
+      // Check screen width as a secondary factor
       const isSmallScreen = window.innerWidth < MOBILE_BREAKPOINT;
       
-      // Set as mobile if either condition is true
-      setIsMobile(isSmallScreen || isMobileDevice);
+      // For mobile devices, ALWAYS return true even if they request desktop site
+      // For desktop devices with small screens, check screen width
+      setIsMobile(isMobileDevice || isSmallScreen);
     }
     
     // Initial check

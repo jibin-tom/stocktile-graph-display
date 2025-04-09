@@ -3,6 +3,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Session, User } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import Confetti from 'react-confetti';
 
 interface AuthContextType {
   session: Session | null;
@@ -19,6 +20,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showConfetti, setShowConfetti] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -28,15 +30,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, newSession) => {
         console.log('Auth state changed:', event, newSession?.user?.email);
-        setSession(newSession);
-        setUser(newSession?.user ?? null);
         
         if (event === 'SIGNED_IN') {
+          setSession(newSession);
+          setUser(newSession?.user ?? null);
+          
+          // Show confetti animation
+          setShowConfetti(true);
+          
+          // Hide after 5 seconds
+          setTimeout(() => {
+            setShowConfetti(false);
+          }, 5000);
+          
           toast({
             title: "Welcome back!",
             description: "You've successfully signed in.",
           });
         } else if (event === 'SIGNED_OUT') {
+          setSession(null);
+          setUser(null);
+          
           toast({
             title: "Signed out",
             description: "You've been signed out successfully.",
@@ -141,7 +155,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     loading,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  // Custom dollar sign shapes for the confetti
+  const DollarSymbol = () => (
+    <div style={{ 
+      color: '#22c55e', 
+      fontSize: '24px',
+      fontWeight: 'bold'
+    }}>
+      $
+    </div>
+  );
+
+  return (
+    <AuthContext.Provider value={value}>
+      {showConfetti && (
+        <Confetti
+          width={window.innerWidth}
+          height={window.innerHeight}
+          numberOfPieces={150}
+          recycle={false}
+          colors={['#22c55e', '#f59e0b', '#8b5cf6', '#ec4899', '#06b6d4']}
+        />
+      )}
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => {
