@@ -66,13 +66,10 @@ const MarketOverview: React.FC = () => {
 
   return (
     <div className="flex flex-col md:flex-row items-start gap-4">
-      <div className="md:w-56 shrink-0">
+      <div>
         <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent animate-pulse mb-4">
           Market Overview
         </h2>
-        <p className="text-gray-600 text-sm">
-          Latest market data across global indices. Click on any tile to learn more.
-        </p>
       </div>
       <Card className="flex-1 overflow-hidden bg-white shadow-md border-2 border-blue-100 hover:shadow-xl transition-all duration-300">
         <CardContent className="p-4">

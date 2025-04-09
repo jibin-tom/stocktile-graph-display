@@ -96,10 +96,7 @@ const Index = () => {
             </div>
           </div>
           <div className="md:w-1/2 flex flex-col items-center relative">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center justify-center w-full h-full">
-                <div className="animate-border-flow"></div>
-              </div>
+            <div className="relative rainbow-border">
               <img 
                 src="/lovable-uploads/d5af928d-133e-4280-8b4f-0390db8a01d0.png" 
                 alt="Stock trader with sunglasses" 
@@ -256,7 +253,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto text-center relative z-10">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white animate-pulse">Ready to take your investing to the next level?</h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto text-white/90 animate-bounce-slow">
-            Join thousands of investors who use StockTile to discover opportunities, analyze market trends, and make smarter investment decisions.
+            Join thousands of investors who use Stockerr to discover opportunities, analyze market trends, and make smarter investment decisions.
           </p>
           <Button 
             size="lg" 
@@ -285,43 +282,18 @@ const Index = () => {
       <style>
         {`
           @keyframes border-flow {
-            0% {
-              transform: rotate(0deg);
-              border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            0%, 100% {
               background-position: 0% 0%;
             }
             25% {
-              transform: rotate(-90deg);
-              border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
-              background-position: 25% 50%;
+              background-position: 100% 0%;
             }
             50% {
-              transform: rotate(-180deg);
-              border-radius: 50% 50% 20% 80% / 25% 80% 20% 75%;
-              background-position: 50% 100%;
+              background-position: 100% 100%;
             }
             75% {
-              transform: rotate(-270deg);
-              border-radius: 30% 70% 70% 30% / 30% 52% 48% 70%;
-              background-position: 75% 50%;
+              background-position: 0% 100%;
             }
-            100% {
-              transform: rotate(-360deg);
-              border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-              background-position: 0% 0%;
-            }
-          }
-          
-          .animate-border-flow {
-            position: absolute;
-            width: calc(100% + 30px);
-            height: calc(100% + 30px);
-            background: linear-gradient(90deg, #ff0080, #ff8c00, #ffed00, #00ff80, #00cfff, #cc00ff, #ff0080);
-            background-size: 600% 600%;
-            animation: border-flow 8s linear infinite;
-            filter: blur(8px);
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            z-index: 1;
           }
           
           @keyframes float-random {

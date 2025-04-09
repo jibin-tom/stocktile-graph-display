@@ -8,25 +8,25 @@ const features = [
     title: 'Real-time Market Data',
     description: 'Get up-to-the-minute price quotes, charts, and market news',
     icon: <TrendingUp className="h-10 w-10" />,
-    gradient: 'from-blue-500 via-purple-500 to-pink-500',
+    gradient: 'from-blue-400/70 via-purple-400/60 to-pink-400/70',
   },
   {
     title: 'Advanced Stock Screening',
     description: 'Filter stocks by performance, fundamentals, and technical indicators',
     icon: <Search className="h-10 w-10" />,
-    gradient: 'from-green-500 via-teal-500 to-blue-500',
+    gradient: 'from-green-400/70 via-teal-400/60 to-blue-400/70',
   },
   {
     title: 'Custom Alerts',
     description: 'Set price targets and get notified when stocks hit your thresholds',
     icon: <Bell className="h-10 w-10" />,
-    gradient: 'from-yellow-500 via-orange-500 to-red-500',
+    gradient: 'from-yellow-400/70 via-orange-400/60 to-red-400/70',
   },
   {
     title: 'In-depth Analytics',
     description: 'Visualize performance metrics and track your investment growth',
     icon: <BarChart3 className="h-10 w-10" />,
-    gradient: 'from-pink-500 via-purple-500 to-indigo-500',
+    gradient: 'from-pink-400/70 via-purple-400/60 to-indigo-400/70',
   },
 ];
 
@@ -44,13 +44,13 @@ const FeatureSection: React.FC = () => {
           {features.map((feature, index) => (
             <Card 
               key={index} 
-              className={`transition-all duration-500 transform hover:scale-105 hover:shadow-xl border-0 overflow-hidden
+              className={`transition-all duration-500 transform hover:scale-105 hover:shadow-xl border-0 overflow-hidden bg-white/80 backdrop-blur-sm
                         ${hoveredIndex === index ? 'translate-y-[-8px]' : ''}`}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
-              <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-${hoveredIndex === index ? '20' : '10'}`} />
-              <div className={`absolute inset-[-2px] bg-gradient-to-r ${feature.gradient} opacity-${hoveredIndex === index ? '100' : '75'} blur-[3px] -z-10`}></div>
+              <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-${hoveredIndex === index ? '15' : '5'}`} />
+              <div className={`absolute inset-[-2px] bg-gradient-to-r ${feature.gradient} opacity-${hoveredIndex === index ? '60' : '40'} blur-[3px] -z-10`}></div>
               
               <CardContent className="pt-6 text-center relative z-10">
                 <div className={`flex justify-center mb-4 transition-all duration-300

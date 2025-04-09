@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ChevronDown, Search, DollarSign, BarChart2, TrendingUp, Newspaper, BookOpen, Globe } from 'lucide-react';
@@ -124,7 +125,7 @@ const Navbar = () => {
                   <NavigationMenuTrigger className="bg-gradient-to-r from-blue-100 to-purple-100 hover:from-blue-200 hover:to-purple-200 font-semibold text-blue-800 hover:text-blue-900 transition-all duration-300">
                     Markets
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent>
+                  <NavigationMenuContent className="markets-dropdown vibrant-dropdown-content">
                     <div className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-2">
                       <div className="grid gap-1">
                         <NavigationMenuLink asChild>
@@ -132,7 +133,7 @@ const Navbar = () => {
                             href="https://www.marketwatch.com/" 
                             target="_blank" 
                             rel="noopener noreferrer" 
-                            className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue"
+                            className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gradient-to-r hover:from-blue-100 hover:to-purple-100 vibrant-dropdown-item"
                           >
                             <BarChart2 className="h-4 w-4" />
                             <span>Market Overview</span>
@@ -143,7 +144,7 @@ const Navbar = () => {
                             href="https://www.nyse.com/listings/stock" 
                             target="_blank" 
                             rel="noopener noreferrer" 
-                            className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue"
+                            className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gradient-to-r hover:from-blue-100 hover:to-purple-100 vibrant-dropdown-item"
                           >
                             <DollarSign className="h-4 w-4" />
                             <span>Stocks</span>
@@ -154,7 +155,7 @@ const Navbar = () => {
                             href="https://www.spglobal.com/spdji/en/indices/equity/sp-500/" 
                             target="_blank" 
                             rel="noopener noreferrer" 
-                            className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue"
+                            className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gradient-to-r hover:from-blue-100 hover:to-purple-100 vibrant-dropdown-item"
                           >
                             <TrendingUp className="h-4 w-4" />
                             <span>Indices</span>
@@ -167,7 +168,7 @@ const Navbar = () => {
                             href="https://www.msci.com/our-solutions/indexes/global-equity-indexes" 
                             target="_blank" 
                             rel="noopener noreferrer" 
-                            className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue"
+                            className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gradient-to-r hover:from-blue-100 hover:to-purple-100 vibrant-dropdown-item"
                           >
                             <Globe className="h-4 w-4" />
                             <span>Global Markets</span>
@@ -178,7 +179,7 @@ const Navbar = () => {
                             href="https://www.spglobal.com/spdji/en/index-family/select-sectors/sp-sectors/" 
                             target="_blank" 
                             rel="noopener noreferrer" 
-                            className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue"
+                            className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gradient-to-r hover:from-blue-100 hover:to-purple-100 vibrant-dropdown-item"
                           >
                             <BarChart2 className="h-4 w-4" />
                             <span>Sectors</span>
@@ -193,12 +194,12 @@ const Navbar = () => {
                   <NavigationMenuTrigger className="bg-gradient-to-r from-green-100 to-teal-100 hover:from-green-200 hover:to-teal-200 font-semibold text-green-800 hover:text-green-900 transition-all duration-300">
                     Watchlists
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent>
+                  <NavigationMenuContent className="watchlists-dropdown vibrant-dropdown-content">
                     <div className="grid gap-3 p-4 md:w-[300px]">
                       <NavigationMenuLink asChild>
                         <a 
                           href="/watchlists" 
-                          className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue"
+                          className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gradient-to-r hover:from-green-100 hover:to-teal-100 vibrant-dropdown-item"
                         >
                           <TrendingUp className="h-4 w-4" />
                           <span>My Watchlists</span>
@@ -207,7 +208,7 @@ const Navbar = () => {
                       <NavigationMenuLink asChild>
                         <a 
                           href="/create-watchlist" 
-                          className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue"
+                          className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gradient-to-r hover:from-green-100 hover:to-teal-100 vibrant-dropdown-item"
                         >
                           <DollarSign className="h-4 w-4" />
                           <span>Create New Watchlist</span>
@@ -221,14 +222,14 @@ const Navbar = () => {
                   <NavigationMenuTrigger className="bg-gradient-to-r from-yellow-100 to-orange-100 hover:from-yellow-200 hover:to-orange-200 font-semibold text-yellow-800 hover:text-yellow-900 transition-all duration-300">
                     News
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent>
+                  <NavigationMenuContent className="news-dropdown vibrant-dropdown-content">
                     <div className="grid gap-3 p-4 md:w-[350px]">
                       <NavigationMenuLink asChild>
                         <a 
                           href="https://www.moneycontrol.com/news/" 
                           target="_blank" 
                           rel="noopener noreferrer" 
-                          className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue"
+                          className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gradient-to-r hover:from-yellow-100 hover:to-orange-100 vibrant-dropdown-item"
                         >
                           <Newspaper className="h-4 w-4" />
                           <span>Latest News</span>
@@ -239,7 +240,7 @@ const Navbar = () => {
                           href="https://www.moneycontrol.com/news/business/markets/" 
                           target="_blank" 
                           rel="noopener noreferrer" 
-                          className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue"
+                          className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gradient-to-r hover:from-yellow-100 hover:to-orange-100 vibrant-dropdown-item"
                         >
                           <BookOpen className="h-4 w-4" />
                           <span>Market Analysis</span>
@@ -250,7 +251,7 @@ const Navbar = () => {
                           href="https://www.moneycontrol.com/markets/earnings/" 
                           target="_blank" 
                           rel="noopener noreferrer" 
-                          className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-finance-blue"
+                          className="group flex h-10 w-full items-center justify-start space-x-2 rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gradient-to-r hover:from-yellow-100 hover:to-orange-100 vibrant-dropdown-item"
                         >
                           <BarChart2 className="h-4 w-4" />
                           <span>Economic Calendar</span>
@@ -282,12 +283,12 @@ const Navbar = () => {
                   }}
                   onFocus={handleSearchFocus}
                   placeholder="Search for stocks, ETFs, indices" 
-                  className="pl-10 h-9 w-full"
+                  className="pl-10 h-9 w-full search-bar-blend"
                   ref={searchInputRef}
                 />
               </div>
             </PopoverTrigger>
-            <PopoverContent className="p-0 w-full" align="start">
+            <PopoverContent className="p-0 w-full vibrant-dropdown-content" align="start">
               <Command>
                 <CommandList>
                   <CommandEmpty>No results found.</CommandEmpty>
@@ -296,7 +297,7 @@ const Navbar = () => {
                       <CommandItem
                         key={stock.symbol}
                         onSelect={() => handleSelectStock(stock.symbol)}
-                        className="flex items-center"
+                        className="flex items-center vibrant-dropdown-item"
                       >
                         <div className="flex flex-col">
                           <span className="font-medium">{stock.symbol}</span>
@@ -326,14 +327,14 @@ const Navbar = () => {
                 variant="outline" 
                 size="sm" 
                 onClick={handleOpenLogin}
-                className="border-blue-300 text-blue-600 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-400 transition-all duration-300 font-medium shadow-sm hover:shadow"
+                className="border-blue-300 text-blue-600 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-400 transition-all duration-300 font-medium shadow-sm hover:shadow bg-gradient-to-r from-blue-50 to-purple-50"
               >
                 Log In
               </Button>
               <Button 
                 size="sm" 
                 onClick={handleOpenSignup}
-                className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 animate-pulse-subtle"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 animate-pulse-subtle"
               >
                 Sign Up
               </Button>
