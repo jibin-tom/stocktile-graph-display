@@ -67,10 +67,10 @@ const Index = () => {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
       
-      <section className="pt-16 md:pt-24 pb-8 md:pb-12 px-4 bg-white">
+      <section className="pt-24 pb-12 px-4 bg-white">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8">
-            <h1 className={`text-3xl md:text-5xl font-bold leading-tight mb-4 transition-all duration-700 ${titleAnimation ? 'opacity-100 translate-y-0 scale-105' : 'opacity-90 -translate-y-1 scale-100'}`}>
+            <h1 className={`text-4xl md:text-5xl font-bold leading-tight mb-4 transition-all duration-700 ${titleAnimation ? 'opacity-100 translate-y-0 scale-105' : 'opacity-90 -translate-y-1 scale-100'}`}>
               Smart Investing Starts with Better{' '}
               <span className={`bg-gradient-to-r ${gradientColors[colorIndex]} bg-clip-text text-transparent transition-colors duration-1000`}
                 style={{
@@ -82,7 +82,7 @@ const Index = () => {
                 by Sachin
               </span>
             </h1>
-            <p className={`text-lg md:text-xl text-gray-600 mb-6 md:mb-8 transition-all duration-700 delay-300 ${titleAnimation ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}>
+            <p className={`text-xl text-gray-600 mb-8 transition-all duration-700 delay-300 ${titleAnimation ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}>
               Discover, analyze, and track top-performing stocks with our intuitive platform.
             </p>
             <div className={`flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 transition-all duration-700 delay-500 ${titleAnimation ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
@@ -94,7 +94,7 @@ const Index = () => {
               </Button>
             </div>
           </div>
-          <div className="w-full md:w-1/2 flex flex-col items-center relative">
+          <div className="md:w-1/2 flex flex-col items-center relative">
             <div className="relative aura-border">
               <img 
                 src="/lovable-uploads/d5af928d-133e-4280-8b4f-0390db8a01d0.png" 
@@ -110,35 +110,35 @@ const Index = () => {
         </div>
       </section>
       
-      <section className="py-6 md:py-8 px-4">
+      <section className="py-8 px-4">
         <div className="max-w-7xl mx-auto">
           <MarketOverview />
         </div>
       </section>
       
-      <section className="py-6 md:py-8 px-4">
+      <section className="py-8 px-4">
         <div className="max-w-7xl mx-auto">
           <Tabs defaultValue="trending">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 space-y-3 md:space-y-0">
-              <h2 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-indigo-600 to-pink-500 bg-clip-text text-transparent animate-pulse">Explore Stocks</h2>
-              <TabsList className="bg-gradient-to-r from-blue-500 to-purple-500 p-1 rounded-md overflow-x-auto w-full md:w-auto flex-nowrap">
-                <TabsTrigger value="trending" className="text-white data-[state=active]:bg-white data-[state=active]:text-blue-600 transition-all duration-300 hover:bg-white/10 whitespace-nowrap">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-pink-500 bg-clip-text text-transparent animate-pulse">Explore Stocks</h2>
+              <TabsList className="bg-gradient-to-r from-blue-500 to-purple-500 p-1 rounded-md">
+                <TabsTrigger value="trending" className="text-white data-[state=active]:bg-white data-[state=active]:text-blue-600 transition-all duration-300 hover:bg-white/10">
                   <TrendingUp className="h-4 w-4 mr-2" /> Trending
                 </TabsTrigger>
-                <TabsTrigger value="gainers" className="text-white data-[state=active]:bg-white data-[state=active]:text-blue-600 transition-all duration-300 hover:bg-white/10 whitespace-nowrap">
+                <TabsTrigger value="gainers" className="text-white data-[state=active]:bg-white data-[state=active]:text-blue-600 transition-all duration-300 hover:bg-white/10">
                   <Flame className="h-4 w-4 mr-2" /> Top Gainers
                 </TabsTrigger>
-                <TabsTrigger value="value" className="text-white data-[state=active]:bg-white data-[state=active]:text-blue-600 transition-all duration-300 hover:bg-white/10 whitespace-nowrap">
+                <TabsTrigger value="value" className="text-white data-[state=active]:bg-white data-[state=active]:text-blue-600 transition-all duration-300 hover:bg-white/10">
                   <DollarSign className="h-4 w-4 mr-2" /> Value Picks
                 </TabsTrigger>
-                <TabsTrigger value="dividend" className="text-white data-[state=active]:bg-white data-[state=active]:text-blue-600 transition-all duration-300 hover:bg-white/10 whitespace-nowrap">
+                <TabsTrigger value="dividend" className="text-white data-[state=active]:bg-white data-[state=active]:text-blue-600 transition-all duration-300 hover:bg-white/10">
                   <Percent className="h-4 w-4 mr-2" /> Dividend
                 </TabsTrigger>
               </TabsList>
             </div>
             
             <TabsContent value="trending" className="mt-0">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {mockStocks.slice(0, 8).map((stock) => (
                   <StockTile
                     key={stock.symbol}
@@ -220,7 +220,7 @@ const Index = () => {
             </TabsContent>
           </Tabs>
           
-          <div className="text-center mt-6 md:mt-8">
+          <div className="text-center mt-8">
             <Button variant="outline" size="lg">View All Stocks</Button>
           </div>
         </div>
@@ -230,7 +230,7 @@ const Index = () => {
       
       <TestimonialSection />
       
-      <section className="py-12 md:py-16 px-4 relative overflow-hidden">
+      <section className="py-16 px-4 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-purple-600 opacity-90">
           <div className="absolute inset-0 overflow-hidden">
             {[...Array(12)].map((_, i) => (
@@ -250,8 +250,8 @@ const Index = () => {
           </div>
         </div>
         <div className="max-w-7xl mx-auto text-center relative z-10">
-          <h2 className="text-2xl md:text-4xl font-bold mb-4 text-white animate-pulse">Ready to take your investing to the next level?</h2>
-          <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-white/90 animate-bounce-slow">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white animate-pulse">Ready to take your investing to the next level?</h2>
+          <p className="text-xl mb-8 max-w-3xl mx-auto text-white/90 animate-bounce-slow">
             Join thousands of investors who use Stockerr to discover opportunities, analyze market trends, and make smarter investment decisions.
           </p>
           <Button 
